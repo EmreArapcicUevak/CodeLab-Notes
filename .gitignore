@@ -50,3 +50,6 @@ compile_commands.json
 
 # QtCreator local machine specific files for imported projects
 *creator.user*
+
+# Build Files
+*/build-CodeLab-Notes-Desktop_Qt_6_4_0_GCC_64bit-Debug

@@ -5,6 +5,10 @@ CodeEditor::CodeEditor(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CodeEditor) {
     ui->setupUi(this);
+
+
+
+
 }
 
 CodeEditor::~CodeEditor()

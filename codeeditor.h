@@ -14,7 +14,6 @@ class CodeEditor : public QMainWindow
 public:
     CodeEditor(QWidget *parent = nullptr);
     ~CodeEditor();
-
 private:
     Ui::CodeEditor *ui;
 };

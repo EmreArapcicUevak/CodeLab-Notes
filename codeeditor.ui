@@ -46,19 +46,19 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <property name="spacing">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="leftMargin">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="topMargin">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="rightMargin">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="bottomMargin">
-     <number>1</number>
+     <number>0</number>
     </property>
     <item>
      <widget class="QSplitter" name="mainSplitter">
@@ -76,20 +76,32 @@
       </property>
       <widget class="QWidget" name="leftVerticalWidget" native="true">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
        <property name="maximumSize">
         <size>
-         <width>350</width>
+         <width>16777215</width>
          <height>16777215</height>
         </size>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
         <property name="spacing">
          <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>3</number>
+        </property>
+        <property name="topMargin">
+         <number>3</number>
+        </property>
+        <property name="rightMargin">
+         <number>1</number>
+        </property>
+        <property name="bottomMargin">
+         <number>3</number>
         </property>
         <item>
          <widget class="QWidget" name="btn_holder_layout" native="true">
@@ -253,7 +265,7 @@ border : none;
       <widget class="QWidget" name="rightVerticalWidget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
+         <horstretch>5</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
@@ -266,6 +278,18 @@ border : none;
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,5">
         <property name="spacing">
          <number>0</number>
+        </property>
+        <property name="leftMargin">
+         <number>1</number>
+        </property>
+        <property name="topMargin">
+         <number>3</number>
+        </property>
+        <property name="rightMargin">
+         <number>3</number>
+        </property>
+        <property name="bottomMargin">
+         <number>3</number>
         </property>
         <item>
          <widget class="QWidget" name="opened_files_holder" native="true">

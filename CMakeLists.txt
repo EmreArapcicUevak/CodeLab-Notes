@@ -17,8 +17,11 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 set(PROJECT_SOURCES
         main.cpp
         codeeditor.cpp
+        editor.cpp
 
         codeeditor.h
+        linenumberarea.h
+        editor.h
 
         codeeditor.ui
 

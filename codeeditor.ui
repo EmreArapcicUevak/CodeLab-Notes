@@ -320,7 +320,7 @@ border : none;
            <bool>false</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">QWidget#horizontalWidget {
+           <string notr="true">QWidget#editorHolder {
 background-image: url(:/Resources/Resources/Images/logo_image.jpg);
 background-repeat: no-repeat;
 background-position: center;
@@ -340,19 +340,7 @@ background-position: center;
             <number>0</number>
            </property>
            <item>
-            <widget class="QTextEdit" name="editor">
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="autoFillBackground">
-              <bool>true</bool>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color:&quot;#27282a&quot;;</string>
-             </property>
-            </widget>
+            <widget class="Editor" name="plainTextEdit"/>
            </item>
           </layout>
          </widget>
@@ -515,6 +503,13 @@ background-position: center;
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Editor</class>
+   <extends>QPlainTextEdit</extends>
+   <header location="global">editor.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="Resources.qrc"/>
  </resources>

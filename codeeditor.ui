@@ -61,7 +61,7 @@
      <number>1</number>
     </property>
     <item>
-     <widget class="QSplitter" name="splitter">
+     <widget class="QSplitter" name="mainSplitter">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
         <horstretch>5</horstretch>
@@ -74,7 +74,7 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QWidget" name="verticalWidget" native="true">
+      <widget class="QWidget" name="leftVerticalWidget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -92,7 +92,7 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QWidget" name="main_btn_layout" native="true">
+         <widget class="QWidget" name="btn_holder_layout" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -250,7 +250,7 @@ border : none;
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="verticalWidget_2" native="true">
+      <widget class="QWidget" name="rightVerticalWidget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -268,7 +268,7 @@ border : none;
          <number>0</number>
         </property>
         <item>
-         <widget class="QWidget" name="horizontalWidget_2" native="true">
+         <widget class="QWidget" name="opened_files_holder" native="true">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -304,7 +304,7 @@ border : none;
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="horizontalWidget" native="true">
+         <widget class="QWidget" name="editorHolder" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -340,7 +340,7 @@ background-position: center;
             <number>0</number>
            </property>
            <item>
-            <widget class="QTextEdit" name="textEdit">
+            <widget class="QTextEdit" name="editor">
              <property name="font">
               <font>
                <pointsize>14</pointsize>
@@ -358,8 +358,8 @@ background-position: center;
          </widget>
         </item>
        </layout>
-       <zorder>horizontalWidget</zorder>
-       <zorder>horizontalWidget_2</zorder>
+       <zorder>editorHolder</zorder>
+       <zorder>opened_files_holder</zorder>
       </widget>
      </widget>
     </item>

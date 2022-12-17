@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>911</width>
-    <height>617</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -16,11 +16,17 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>640</width>
+    <height>480</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>CodeLab Notes</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(65, 66, 68);</string>
+   <string notr="true">background-color: &quot;#454648&quot;;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -29,31 +35,70 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>640</width>
+     <height>480</height>
+    </size>
+   </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color : &quot;#454648&quot;;</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>1</number>
+    </property>
     <property name="leftMargin">
-     <number>3</number>
+     <number>1</number>
     </property>
     <property name="topMargin">
-     <number>3</number>
+     <number>1</number>
     </property>
     <property name="rightMargin">
-     <number>3</number>
+     <number>1</number>
     </property>
     <property name="bottomMargin">
-     <number>3</number>
+     <number>1</number>
     </property>
     <item>
      <widget class="QSplitter" name="splitter">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>5</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <layout class="QVBoxLayout" name="verticalLayout">
+      <widget class="QWidget" name="verticalWidget" native="true">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>350</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="main_btn_layout" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color : &quot;#353638&quot;;</string>
           </property>
@@ -187,6 +232,12 @@ border : none;
         </item>
         <item>
          <widget class="QTreeWidget" name="treeWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="styleSheet">
            <string notr="true">background-color : &quot;#353638&quot;;</string>
           </property>
@@ -199,63 +250,116 @@ border : none;
         </item>
        </layout>
       </widget>
-      <widget class="QTabWidget" name="tabWidget">
+      <widget class="QWidget" name="verticalWidget_2" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>3</horstretch>
+         <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="currentIndex">
-        <number>0</number>
+       <property name="sizeIncrement">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
        </property>
-       <widget class="QWidget" name="tab">
-        <property name="styleSheet">
-         <string notr="true">background-color: &quot;#27282a&quot;;</string>
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,5">
+        <property name="spacing">
+         <number>0</number>
         </property>
-        <attribute name="title">
-         <string>Tab 1</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QTextEdit" name="textEdit">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>1</horstretch>
-             <verstretch>1</verstretch>
-            </sizepolicy>
+        <item>
+         <widget class="QWidget" name="horizontalWidget_2" native="true">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>5</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>38</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color : &quot;#353638&quot;;</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <property name="leftMargin">
+            <number>0</number>
            </property>
-           <property name="sizeIncrement">
-            <size>
-             <width>1</width>
-             <height>1</height>
-            </size>
+           <property name="topMargin">
+            <number>0</number>
            </property>
-           <property name="styleSheet">
-            <string notr="true">background-color : &quot;#27282a&quot;;
-border : none</string>
+           <property name="rightMargin">
+            <number>0</number>
            </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_2">
-        <attribute name="title">
-         <string>Tab 2</string>
-        </attribute>
-       </widget>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="horizontalWidget" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QWidget#horizontalWidget {
+background-image: url(:/Resources/Resources/Images/logo_image.jpg);
+background-repeat: no-repeat;
+background-position: center;
+}</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QTextEdit" name="textEdit">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="autoFillBackground">
+              <bool>true</bool>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color:&quot;#27282a&quot;;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+       <zorder>horizontalWidget</zorder>
+       <zorder>horizontalWidget_2</zorder>
       </widget>
      </widget>
     </item>
@@ -271,7 +375,7 @@ border : none</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>911</width>
+     <width>1280</width>
      <height>21</height>
     </rect>
    </property>

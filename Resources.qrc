@@ -5,5 +5,7 @@
         <file>Resources/Icons/build_icon.svg</file>
         <file>Resources/Icons/remove_file_folder_icon.svg</file>
         <file>Resources/Icons/remove_icon.svg</file>
+        <file>Resources/Images/logo_image.svg</file>
+        <file>Resources/Images/logo_image.jpg</file>
     </qresource>
 </RCC>

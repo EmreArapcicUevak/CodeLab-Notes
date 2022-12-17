@@ -15,12 +15,12 @@ Editor::Editor(QWidget *parent) : QPlainTextEdit(parent) {
 
 int Editor::lineNumberAreaWidth() {
 
-    int digits = 1;
-    int max = qMax(1, blockCount());
+    int digits = 5;
+    /*int max = qMax(1, blockCount());
     while (max >= 10) {
         max /= 10;
         ++digits;
-    }
+    }*/
 
     int space = 3 + fontMetrics().horizontalAdvance(QLatin1Char('9')) * digits;
 
@@ -54,7 +54,7 @@ void Editor::resizeEvent(QResizeEvent *e) {
 void Editor::lineNumberAreaPaintEvent(QPaintEvent *event) {
 
     QPainter painter(lineNumberArea);
-    painter.fillRect(event->rect(), Qt::lightGray);
+    painter.fillRect(event->rect(), QColor("#27282a"));
 
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
@@ -64,9 +64,10 @@ void Editor::lineNumberAreaPaintEvent(QPaintEvent *event) {
     while (block.isValid() && top <= event->rect().bottom()) {
         if (block.isVisible() && bottom >= event->rect().top()) {
             QString number = QString::number(blockNumber + 1);
-            painter.setPen(Qt::black);
+            painter.setPen(QColor("#c5c5c5"));
+            painter.setFont(QFont("roboto",14));
             painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
-                             Qt::AlignRight, number);
+                             Qt::AlignCenter, number);
         }
 
         block = block.next();

@@ -9,8 +9,10 @@ Editor::Editor(QWidget *parent) : QPlainTextEdit(parent) {
 
     connect(this, &Editor::blockCountChanged, this, &Editor::updateLineNumberAreaWidth);
     connect(this, &Editor::updateRequest, this, &Editor::updateLineNumberArea);
+    connect(this, &Editor::cursorPositionChanged, this, &Editor::highlightCurrentLine);
 
     updateLineNumberAreaWidth(0);
+    highlightCurrentLine();
 }
 
 int Editor::lineNumberAreaWidth() {
@@ -75,4 +77,23 @@ void Editor::lineNumberAreaPaintEvent(QPaintEvent *event) {
         bottom = top + qRound(blockBoundingRect(block).height());
         ++blockNumber;
     }
+}
+
+void Editor::highlightCurrentLine()
+{
+    QList<QTextEdit::ExtraSelection> extraSelections;
+
+    if (!isReadOnly()) {
+        QTextEdit::ExtraSelection selection;
+
+        QColor lineColor = QColor("#27282a").lighter(130);
+
+        selection.format.setBackground(lineColor);
+        selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+        selection.cursor = textCursor();
+        selection.cursor.clearSelection();
+        extraSelections.append(selection);
+    }
+
+    setExtraSelections(extraSelections);
 }

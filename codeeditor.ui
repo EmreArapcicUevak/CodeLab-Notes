@@ -243,7 +243,7 @@ border : none;
          </widget>
         </item>
         <item>
-         <widget class="QTreeWidget" name="treeWidget">
+         <widget class="QTreeView" name="treeView">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -253,11 +253,6 @@ border : none;
           <property name="styleSheet">
            <string notr="true">background-color : &quot;#353638&quot;;</string>
           </property>
-          <column>
-           <property name="text">
-            <string notr="true">1</string>
-           </property>
-          </column>
          </widget>
         </item>
        </layout>

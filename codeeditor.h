@@ -14,7 +14,13 @@ class CodeEditor : public QMainWindow
 public:
     CodeEditor(QWidget *parent = nullptr);
     ~CodeEditor();
+    void setWorkingDirectory(const QString &newWorkingDirectory);
+
+signals:
+    void workingDirectoryChanged();
 private:
     Ui::CodeEditor *ui;
+    QString workingDirectory;
+    void setUpMenu();
 };
 #endif // CODEEDITOR_H

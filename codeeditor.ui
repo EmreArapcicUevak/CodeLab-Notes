@@ -364,7 +364,7 @@ background-position: center;
             <number>0</number>
            </property>
            <item>
-            <widget class="Editor" name="plainTextEdit">
+            <widget class="Editor" name="editor">
              <property name="font">
               <font>
                <pointsize>14</pointsize>

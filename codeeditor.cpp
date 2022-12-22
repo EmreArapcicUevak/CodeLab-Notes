@@ -6,9 +6,6 @@ CodeEditor::CodeEditor(QWidget *parent)
     , ui(new Ui::CodeEditor) {
     ui->setupUi(this);
 
-
-
-
 }
 
 CodeEditor::~CodeEditor()

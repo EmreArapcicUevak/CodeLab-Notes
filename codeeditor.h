@@ -7,8 +7,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class CodeEditor; }
 QT_END_NAMESPACE
 
-class CodeEditor : public QMainWindow
-{
+class CodeEditor : public QMainWindow {
     Q_OBJECT
 
 public:

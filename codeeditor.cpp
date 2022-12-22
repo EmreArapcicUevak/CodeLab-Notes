@@ -8,8 +8,7 @@ CodeEditor::CodeEditor(QWidget *parent)
 
 }
 
-CodeEditor::~CodeEditor()
-{
+CodeEditor::~CodeEditor() {
     delete ui;
 }
 

@@ -292,7 +292,7 @@ border : none;
          <number>3</number>
         </property>
         <item>
-         <widget class="QWidget" name="opened_files_holder" native="true">
+         <widget class="QWidget" name="opened_files_placeholder" native="true">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -380,7 +380,7 @@ background-position: center;
         </item>
        </layout>
        <zorder>editorHolder</zorder>
-       <zorder>opened_files_holder</zorder>
+       <zorder>opened_files_placeholder</zorder>
       </widget>
      </widget>
     </item>

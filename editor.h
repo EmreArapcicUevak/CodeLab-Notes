@@ -3,8 +3,7 @@
 
 #include <QPlainTextEdit>
 
-class Editor : public QPlainTextEdit
-{
+class Editor : public QPlainTextEdit {
     Q_OBJECT
 
 public:

@@ -26,7 +26,15 @@
    <string>CodeLab Notes</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: &quot;#454648&quot;;</string>
+   <string notr="true">/* 
+#27282a - Dark Gray
+#353638 - Normal Gray
+#454648 - Lighter Gray
+#c5c5c5 -  Icon Gray
+#3FFF00 - Harlequin Green
+*/
+
+background-color: &quot;#454648&quot;;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -401,7 +409,8 @@ background-position: center;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color : &quot;#27282a&quot;;</string>
+    <string notr="true">background-color : &quot;#27282a&quot;;
+color: &quot;#c5c5c5&quot;;</string>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">

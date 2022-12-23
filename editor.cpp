@@ -79,8 +79,7 @@ void Editor::lineNumberAreaPaintEvent(QPaintEvent *event) {
     }
 }
 
-void Editor::highlightCurrentLine()
-{
+void Editor::highlightCurrentLine() {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
     if (!isReadOnly()) {

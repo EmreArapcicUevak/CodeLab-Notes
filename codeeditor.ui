@@ -26,7 +26,17 @@
    <string>CodeLab Notes</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: &quot;#454648&quot;;</string>
+   <string notr="true">/* 
+#27282a - Dark Gray
+#353638 - Normal Gray
+#454648 - Lighter Gray
+#c5c5c5 -  Icon Gray
+#3FFF00 - Harlequin Green
+*/
+
+QMainWindow {
+background-color: &quot;#454648&quot;;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -270,6 +280,9 @@ border : none;
          <height>0</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">border : none;</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,5">
         <property name="spacing">
          <number>0</number>
@@ -287,13 +300,10 @@ border : none;
          <number>3</number>
         </property>
         <item>
-         <widget class="QWidget" name="opened_files_holder" native="true">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
+         <widget class="QScrollArea" name="opened_files_tab_holder">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>5</horstretch>
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
@@ -303,23 +313,85 @@ border : none;
             <height>38</height>
            </size>
           </property>
-          <property name="styleSheet">
-           <string notr="true">background-color : &quot;#353638&quot;;</string>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>38</height>
+           </size>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <property name="leftMargin">
-            <number>0</number>
+          <property name="styleSheet">
+           <string notr="true">QScrollBar {
+	height: 5px;
+	border : none;
+}</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="opened_files_tabs">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>16</width>
+             <height>38</height>
+            </rect>
            </property>
-           <property name="topMargin">
-            <number>0</number>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
-           <property name="rightMargin">
-            <number>0</number>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
            </property>
-           <property name="bottomMargin">
-            <number>0</number>
+           <property name="styleSheet">
+            <string notr="true">border : none;</string>
            </property>
-          </layout>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QHBoxLayout" name="tabContainer" stretch="">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
         <item>
@@ -359,14 +431,16 @@ background-position: center;
             <number>0</number>
            </property>
            <item>
-            <widget class="Editor" name="plainTextEdit">
+            <widget class="Editor" name="editor">
              <property name="font">
               <font>
                <pointsize>14</pointsize>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color : &quot;#27282a&quot;;</string>
+              <string notr="true">background-color : &quot;#27282a&quot;;
+border : none;
+padding-top : 10px;</string>
              </property>
             </widget>
            </item>
@@ -374,8 +448,6 @@ background-position: center;
          </widget>
         </item>
        </layout>
-       <zorder>editorHolder</zorder>
-       <zorder>opened_files_holder</zorder>
       </widget>
      </widget>
     </item>
@@ -396,7 +468,8 @@ background-position: center;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color : &quot;#27282a&quot;;</string>
+    <string notr="true">background-color : &quot;#27282a&quot;;
+color: &quot;#c5c5c5&quot;;</string>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">

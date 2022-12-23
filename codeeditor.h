@@ -8,15 +8,15 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class CodeEditor; }
 QT_END_NAMESPACE
 
-class CodeEditor : public QMainWindow
-{
+class CodeEditor : public QMainWindow {
     Q_OBJECT
 
 public:
     CodeEditor(QWidget *parent = nullptr);
     ~CodeEditor();
-    void setWorkingDirectory(const QString &newWorkingDirectory);
 
+    void createTab(QString text);
+    void setWorkingDirectory(const QString &newWorkingDirectory);
 signals:
     void workingDirectoryChanged();
 private slots:

@@ -7,5 +7,13 @@
         <file>Resources/Icons/remove_icon.svg</file>
         <file>Resources/Images/logo_image.svg</file>
         <file>Resources/Images/logo_image.jpg</file>
+        <file>Resources/Logos/c_logo_icon.svg</file>
+        <file>Resources/Logos/cpp_logo_icon.svg</file>
+        <file>Resources/Logos/header_logo_icon.svg</file>
+        <file>Resources/Logos/text_logo_icon.svg</file>
+        <file>Resources/Logos/text_logo_icon.jpg</file>
+        <file>Resources/Logos/header_logo_icon.jpg</file>
+        <file>Resources/Logos/cpp_logo_icon.jpg</file>
+        <file>Resources/Logos/c_logo_icon.jpg</file>
     </qresource>
 </RCC>

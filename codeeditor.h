@@ -13,6 +13,8 @@ class CodeEditor : public QMainWindow {
 public:
     CodeEditor(QWidget *parent = nullptr);
     ~CodeEditor();
+
+    void createTab(QString text);
 private:
     Ui::CodeEditor *ui;
 };

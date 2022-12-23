@@ -18,10 +18,12 @@ set(PROJECT_SOURCES
         main.cpp
         codeeditor.cpp
         editor.cpp
+        openedfiletab.cpp
 
         codeeditor.h
         linenumberarea.h
         editor.h
+        openedfiletab.h
 
         codeeditor.ui
 

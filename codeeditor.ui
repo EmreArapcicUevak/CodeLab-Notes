@@ -34,7 +34,9 @@
 #3FFF00 - Harlequin Green
 */
 
-background-color: &quot;#454648&quot;;</string>
+QMainWindow {
+background-color: &quot;#454648&quot;;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
@@ -283,6 +285,9 @@ border : none;
          <height>0</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">border : none;</string>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,5">
         <property name="spacing">
          <number>0</number>
@@ -302,7 +307,7 @@ border : none;
         <item>
          <widget class="QScrollArea" name="opened_files_tab_holder">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -322,6 +327,7 @@ border : none;
           <property name="styleSheet">
            <string notr="true">QScrollBar {
 	height: 5px;
+	border : none;
 }</string>
           </property>
           <property name="verticalScrollBarPolicy">
@@ -338,18 +344,21 @@ border : none;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1010</width>
-             <height>36</height>
+             <width>16</width>
+             <height>38</height>
             </rect>
            </property>
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">border : none;</string>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <property name="spacing">
@@ -368,74 +377,23 @@ border : none;
              <number>0</number>
             </property>
             <item>
-             <widget class="QPushButton" name="pushButton_3">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+             <layout class="QHBoxLayout" name="tabContainer" stretch="">
+              <property name="spacing">
+               <number>2</number>
               </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
+              <property name="leftMargin">
+               <number>0</number>
               </property>
-              <property name="text">
-               <string>PushButton</string>
+              <property name="topMargin">
+               <number>2</number>
               </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+              <property name="rightMargin">
+               <number>2</number>
               </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
+              <property name="bottomMargin">
+               <number>0</number>
               </property>
-              <property name="text">
-               <string>PushButton</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>PushButton</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
+             </layout>
             </item>
            </layout>
           </widget>
@@ -485,7 +443,9 @@ background-position: center;
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color : &quot;#27282a&quot;;</string>
+              <string notr="true">background-color : &quot;#27282a&quot;;
+border : none;
+padding-top : 10px;</string>
              </property>
             </widget>
            </item>

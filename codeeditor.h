@@ -21,12 +21,12 @@ signals:
     void workingDirectoryChanged();
 private slots:
     void openFolder();
+    void updateTreeView();
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;
     QString workingDirectory;
 
     void setUpMenu();
-    void updateTreeView();
 };
 #endif // CODEEDITOR_H

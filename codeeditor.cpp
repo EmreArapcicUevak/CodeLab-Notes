@@ -27,6 +27,7 @@ CodeEditor::CodeEditor(QWidget *parent)
     this->dirModel = new QFileSystemModel(this);
     this->dirModel->setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
     this->dirModel->setRootPath(QString());
+    this->dirModel->setReadOnly(false);
     this->workingDirectory = QString();
     ui->treeView->setModel(this->dirModel);
     this->updateTreeView();

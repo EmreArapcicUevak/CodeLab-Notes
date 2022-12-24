@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include <QFileSystemModel>
 #include <QDir>
-
+#include <QTreeWidgetItemIterator>
 #include "openedfiletab.h"
 
 CodeEditor::CodeEditor(QWidget *parent)
@@ -79,7 +79,6 @@ void CodeEditor::setUpTreeView()
 
     ui->treeView->setAnimated(true);
     ui->treeView->setModel(this->dirModel);
-    this->updateTreeView();
 }
 
 void CodeEditor::openFolder(){
@@ -94,4 +93,11 @@ void CodeEditor::openFolder(){
 void CodeEditor::updateTreeView()
 {
     ui->treeView->setRootIndex(this->dirModel->index(this->workingDirectory));
+    QTreeWidgetItemIterator it(treeWidget);
+    while (*it) {
+        if ((*it)->text(0) == itemText)
+            (*it)->setSelected(true);
+        ++it;
+    }
+
 }

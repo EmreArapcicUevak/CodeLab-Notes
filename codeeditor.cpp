@@ -24,13 +24,7 @@ CodeEditor::CodeEditor(QWidget *parent)
     setUpMenu();
 
     // Set up default values for the tree directory view
-    this->dirModel = new QFileSystemModel(this);
-    this->dirModel->setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
-    this->dirModel->setRootPath(QString());
-    this->dirModel->setReadOnly(false);
-    this->workingDirectory = QString();
-    ui->treeView->setModel(this->dirModel);
-    this->updateTreeView();
+    setUpTreeView();
 }
 
 
@@ -73,6 +67,19 @@ void CodeEditor::setUpMenu()
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
         qDebug() << "Working directory changed!";
     });
+}
+
+void CodeEditor::setUpTreeView()
+{
+    this->dirModel = new QFileSystemModel(this);
+    this->dirModel->setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
+    this->dirModel->setRootPath(QString());
+    this->dirModel->setReadOnly(false);
+    this->workingDirectory = QString();
+
+    ui->treeView->setAnimated(true);
+    ui->treeView->setModel(this->dirModel);
+    this->updateTreeView();
 }
 
 void CodeEditor::openFolder(){

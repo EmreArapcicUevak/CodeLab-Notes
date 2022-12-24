@@ -28,5 +28,6 @@ private:
     QString workingDirectory;
 
     void setUpMenu();
+    void setUpTreeView();
 };
 #endif // CODEEDITOR_H

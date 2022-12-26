@@ -93,11 +93,5 @@ void CodeEditor::openFolder(){
 void CodeEditor::updateTreeView()
 {
     ui->treeView->setRootIndex(this->dirModel->index(this->workingDirectory));
-    QTreeWidgetItemIterator it(treeWidget);
-    while (*it) {
-        if ((*it)->text(0) == itemText)
-            (*it)->setSelected(true);
-        ++it;
-    }
 
 }

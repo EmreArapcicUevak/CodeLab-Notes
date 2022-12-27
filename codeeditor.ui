@@ -118,146 +118,44 @@ background-color: &quot;#454648&quot;;
          <number>3</number>
         </property>
         <item>
-         <widget class="QWidget" name="btn_holder_layout" native="true">
+         <widget class="QWidget" name="toolboxHolder" native="true">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">QWidget {
-	background-color : &quot;#353638&quot;;
+           <string notr="true">QToolBar {
+	background-color : #353638;
 	border-top-left-radius : 5px;
 	border-top-right-radius : 5px;
-	margin-top : 2px;
-}</string>
+}
+
+QToolButton {
+	background-color : #353638;
+	margin : 0 10;
+	padding : 5 0;
+}
+
+</string>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QPushButton" name="add_file_btn">
-             <property name="maximumSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color : &quot;transparent&quot;;
-border : none;
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="Resources.qrc">
-               <normaloff>:/Resources/Resources/Icons/add_file_icon.svg</normaloff>:/Resources/Resources/Icons/add_file_icon.svg</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="add_folder_btn">
-             <property name="maximumSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color : &quot;transparent&quot;;
-border : none;
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="Resources.qrc">
-               <normaloff>:/Resources/Resources/Icons/add_folder_icon.svg</normaloff>:/Resources/Resources/Icons/add_folder_icon.svg</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="remove_btn">
-             <property name="maximumSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color : &quot;transparent&quot;;
-border : none;
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="Resources.qrc">
-               <normaloff>:/Resources/Resources/Icons/remove_file_folder_icon.svg</normaloff>:/Resources/Resources/Icons/remove_file_folder_icon.svg</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="build_btn">
-             <property name="maximumSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color : &quot;transparent&quot;;
-border : none;
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="Resources.qrc">
-               <normaloff>:/Resources/Resources/Icons/build_icon.svg</normaloff>:/Resources/Resources/Icons/build_icon.svg</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
+          <layout class="QHBoxLayout" name="toolbarHolder" stretch="">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
           </layout>
          </widget>
         </item>
@@ -273,6 +171,8 @@ border : none;
            <string notr="true">#treeView {
 	background-color : #353638;
 	color : white;
+	border : none;
+	padding-top : 10px;
 }
 
 QScrollBar:vertical {
@@ -329,6 +229,12 @@ QScrollBar::add-page, QScrollBar::sub-page {
 height: 0px;
 }</string>
           </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <attribute name="headerVisible">
+           <bool>false</bool>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -617,15 +523,20 @@ color: white;</string>
      <string>File</string>
     </property>
     <addaction name="actionNew_File"/>
+    <addaction name="actionNew_Folder"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_File"/>
     <addaction name="actionOpen_Folder"/>
+    <addaction name="separator"/>
+    <addaction name="actionBuild"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionSave_All"/>
     <addaction name="separator"/>
     <addaction name="actionAuto_Save"/>
+    <addaction name="separator"/>
+    <addaction name="actionRemove"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -668,12 +579,11 @@ color: white;</string>
     <string>About QT</string>
    </property>
   </action>
-  <action name="actionNew_Text_File">
-   <property name="text">
-    <string>New Text File</string>
-   </property>
-  </action>
   <action name="actionNew_File">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/add_file_icon.svg</normaloff>:/Resources/Resources/Icons/add_file_icon.svg</iconset>
+   </property>
    <property name="text">
     <string>New File</string>
    </property>
@@ -689,6 +599,10 @@ color: white;</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/save_file_icon.svg</normaloff>:/Resources/Resources/Icons/save_file_icon.svg</iconset>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
@@ -704,6 +618,9 @@ color: white;</string>
    </property>
   </action>
   <action name="actionAuto_Save">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Auto Save</string>
    </property>
@@ -741,6 +658,33 @@ color: white;</string>
   <action name="actionCompiler">
    <property name="text">
     <string>Compiler</string>
+   </property>
+  </action>
+  <action name="actionBuild">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/build_icon.svg</normaloff>:/Resources/Resources/Icons/build_icon.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Build</string>
+   </property>
+  </action>
+  <action name="actionNew_Folder">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/add_folder_icon.svg</normaloff>:/Resources/Resources/Icons/add_folder_icon.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Folder</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/remove_file_folder_icon.svg</normaloff>:/Resources/Resources/Icons/remove_file_folder_icon.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove</string>
    </property>
   </action>
  </widget>

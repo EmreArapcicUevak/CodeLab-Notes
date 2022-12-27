@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QFileSystemModel>
 #include <QAbstractScrollArea>
+#include <QToolBar>
 
 #include "openedfiletab.h"
 
@@ -18,10 +19,19 @@ CodeEditor::CodeEditor(QWidget *parent)
     createTab("header.h");
     createTab("document.txt");
     createTab("ddkadjddj");
+
+
+
     setUpMenu();
 
 
-
+    QToolBar* toolBar = new QToolBar();
+    ui->toolbarHolder->addWidget(toolBar);
+    toolBar->addAction(ui->actionRemove);
+    toolBar->addAction(ui->actionNew_Folder);
+    toolBar->addAction(ui->actionNew_File);
+    toolBar->addAction(ui->actionSave);
+    toolBar->addAction(ui->actionBuild);
 
 
 
@@ -29,6 +39,10 @@ CodeEditor::CodeEditor(QWidget *parent)
     this->dirModel->setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
     this->dirModel->setRootPath(QString());
     this->updateTreeView();
+    ui->treeView->hideColumn(1);
+    ui->treeView->hideColumn(2);
+    ui->treeView->hideColumn(3);
+
 }
 
 

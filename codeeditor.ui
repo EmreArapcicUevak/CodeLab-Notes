@@ -272,30 +272,49 @@ border : none;
           <property name="styleSheet">
            <string notr="true">#treeView {
 	background-color : #353638;
+	color : white;
 }
 
-QScrollBar {
+QScrollBar:vertical {
 	border : none;
 	background-color : #353638;
 	border-radius : 0px;
+	width : 10px;
 }
 
-QScrollBar::handle {
+QScrollBar:horizontal {
+	border : none;
 	background-color : #353638;
-	border  : 2px solid #454648;
 	border-radius : 0px;
+	height : 10px;
 }
 
-QScrollBar::handle:hover {
+QScrollBar::handle:vertical {
 	background-color : #454648;
 	border  : 2px solid #454648;
 	border-radius : 0px;
+	width : 10px;
 }
 
-QScrollBar::handle:pressed {
+QScrollBar::handle:horizontal {
 	background-color : #454648;
 	border  : 2px solid #454648;
-	border-radius : 7px;
+	border-radius : 0px;
+	height : 10px;
+}
+
+QScrollBar::handle:vertical:pressed {
+	background-color : #454648;
+	border  : 2px solid #454648;
+	border-radius : 5px;
+	width : 10px;
+}
+
+QScrollBar::handle:horizontal:pressed {
+	background-color : #454648;
+	border  : 2px solid #454648;
+	border-radius : 5px;
+	height : 10px;
 }
 
 QScrollBar::add-line {
@@ -492,28 +511,46 @@ padding-top : 10px;
 color : white;
 }
 
-QScrollBar {
+QScrollBar:vertical {
 	border : none;
 	background-color : #27282a;
 	border-radius : 0px;
+	width : 10px;
 }
 
-QScrollBar::handle {
+QScrollBar:horizontal {
+	border : none;
 	background-color : #27282a;
-	border  : 2px solid #353638;
 	border-radius : 0px;
+	height : 10px;
 }
 
-QScrollBar::handle:hover {
+QScrollBar::handle:vertical {
 	background-color : #353638;
 	border  : 2px solid #353638;
 	border-radius : 0px;
+	width : 10px;
 }
 
-QScrollBar::handle:pressed {
-	background-color : #454648;
-	border  : 2px solid #454648;
-	border-radius : 7px;
+QScrollBar::handle:horizontal {
+	background-color : #353638;
+	border  : 2px solid #353638;
+	border-radius : 0px;
+	height : 10px;
+}
+
+QScrollBar::handle:vertical:pressed {
+	background-color : #353638;
+	border  : 2px solid #353638;
+	border-radius : 5px;
+	width : 10px;
+}
+
+QScrollBar::handle:horizontal:pressed {
+	background-color : #353638;
+	border  : 2px solid #353638;
+	border-radius : 5px;
+	height : 10px;
 }
 
 QScrollBar::add-line {
@@ -573,13 +610,12 @@ background-color : #27282a;
    </property>
    <property name="styleSheet">
     <string notr="true">background-color : &quot;#27282a&quot;;
-color: &quot;#c5c5c5&quot;;</string>
+color: white;</string>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNew_Text_File"/>
     <addaction name="actionNew_File"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_File"/>

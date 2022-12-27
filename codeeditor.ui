@@ -52,7 +52,11 @@ background-color: &quot;#454648&quot;;
     </size>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color : &quot;#454648&quot;;</string>
+    <string notr="true">QWidget {
+	background-color : #454648;
+}
+
+</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <property name="spacing">
@@ -122,7 +126,12 @@ background-color: &quot;#454648&quot;;
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color : &quot;#353638&quot;;</string>
+           <string notr="true">QWidget {
+	background-color : &quot;#353638&quot;;
+	border-top-left-radius : 5px;
+	border-top-right-radius : 5px;
+	margin-top : 2px;
+}</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
@@ -261,7 +270,45 @@ border : none;
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color : &quot;#353638&quot;;</string>
+           <string notr="true">#treeView {
+	background-color : #353638;
+}
+
+QScrollBar {
+	border : none;
+	background-color : #353638;
+	border-radius : 0px;
+}
+
+QScrollBar::handle {
+	background-color : #353638;
+	border  : 2px solid #454648;
+	border-radius : 0px;
+}
+
+QScrollBar::handle:hover {
+	background-color : #454648;
+	border  : 2px solid #454648;
+	border-radius : 0px;
+}
+
+QScrollBar::handle:pressed {
+	background-color : #454648;
+	border  : 2px solid #454648;
+	border-radius : 7px;
+}
+
+QScrollBar::add-line {
+height: 0px;
+}
+
+QScrollBar::sub-line {
+height: 0px;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+height: 0px;
+}</string>
           </property>
          </widget>
         </item>
@@ -438,9 +485,66 @@ background-position: center;
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color : &quot;#27282a&quot;;
+              <string notr="true">#editor {
+background-color : #27282a;
 border : none;
-padding-top : 10px;</string>
+padding-top : 10px;
+color : white;
+}
+
+QScrollBar {
+	border : none;
+	background-color : #27282a;
+	border-radius : 0px;
+}
+
+QScrollBar::handle {
+	background-color : #27282a;
+	border  : 2px solid #353638;
+	border-radius : 0px;
+}
+
+QScrollBar::handle:hover {
+	background-color : #353638;
+	border  : 2px solid #353638;
+	border-radius : 0px;
+}
+
+QScrollBar::handle:pressed {
+	background-color : #454648;
+	border  : 2px solid #454648;
+	border-radius : 7px;
+}
+
+QScrollBar::add-line {
+height: 0px;
+background-color : #27282a;
+}
+
+QScrollBar::sub-line {
+height: 0px;
+background-color : #27282a;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+height: 0px;
+background-color : #27282a;
+}</string>
+             </property>
+             <property name="inputMethodHints">
+              <set>Qt::ImhNone</set>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContents</enum>
+             </property>
+             <property name="lineWrapMode">
+              <enum>QPlainTextEdit::NoWrap</enum>
+             </property>
+             <property name="placeholderText">
+              <string/>
              </property>
             </widget>
            </item>

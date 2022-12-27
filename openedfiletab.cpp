@@ -21,19 +21,35 @@ OpenedFileTab::OpenedFileTab(QString text) {
     connect(deleteBtn, &QPushButton::released, this, &OpenedFileTab::deletePressed);
 
 
+
+
     layout->setSpacing(0);
     this->setObjectName("openedTab");
     deleteBtn->setIconSize(QSize(25,25));
     this->setMaximumSize(QSize(10000, 36));
-    this->setStyleSheet("background-color : #353638;"
+    this->setStyleSheet("[clicked=false] {"
+                        "background-color : #353638;"
                         "color : #c5c5c5;"
                         "border-top-left-radius : 5px;"
                         "border-top-right-radius : 5px;"
                         "margin : 0;"
-                        "padding : 0;");
-
+                        "padding : 0;"
+                        "}"
+                        "[clicked=true] {"
+                        "background-color : #27282a;"
+                        "color : white;"
+                        "border-top-left-radius : 5px;"
+                        "border-top-right-radius : 5px;"
+                        "margin : 0;"
+                        "padding : 0;"
+                        "}");
     deleteBtn->setStyleSheet("border : none;");
     iconHolder->setStyleSheet("padding-right : 5px;");
+
+    this->setProperty("clicked", false);
+    deleteBtn->setProperty("clicked", false);
+    iconHolder->setProperty("clicked", false);
+    label->setProperty("clicked", false);
 }
 
 void OpenedFileTab::paintEvent(QPaintEvent* event) {
@@ -51,14 +67,33 @@ void OpenedFileTab::mousePressEvent(QMouseEvent *event) {
 }
 
 void OpenedFileTab::tabPressed() {
-    this->setStyleSheet("background-color : #27282a;"
-                        "border-top-left-radius : 5px;"
-                        "border-top-right-radius : 5px;"
-                        "color : white;"
-                        "margin : 0;"
-                        "padding : 0;");
+    changeColor(true);
 }
 
 void OpenedFileTab::deletePressed() {
     delete this;
+}
+
+void OpenedFileTab::changeColor(bool pressed) {
+    if (pressed) {
+        this->setProperty("clicked", true);
+        deleteBtn->setProperty("clicked", true);
+        iconHolder->setProperty("clicked", true);
+        label->setProperty("clicked", true);
+    }
+    else {
+        this->setProperty("clicked", false);
+        deleteBtn->setProperty("clicked", false);
+        iconHolder->setProperty("clicked", false);
+        label->setProperty("clicked", false);
+    }
+
+    this->style()->unpolish(this);
+    this->style()->polish(this);
+    deleteBtn->style()->unpolish(deleteBtn);
+    deleteBtn->style()->polish(deleteBtn);
+    iconHolder->style()->unpolish(iconHolder);
+    iconHolder->style()->polish(iconHolder);
+    label->style()->unpolish(label);
+    label->style()->polish(label);
 }

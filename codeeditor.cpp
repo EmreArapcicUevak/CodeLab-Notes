@@ -21,7 +21,7 @@ CodeEditor::CodeEditor(QWidget *parent)
     setUpMenu();
 
 
-    ui->opened_files_tab_holder->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
 
 
 

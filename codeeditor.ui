@@ -340,11 +340,11 @@ border : none;
              <x>0</x>
              <y>0</y>
              <width>16</width>
-             <height>38</height>
+             <height>16</height>
             </rect>
            </property>
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -372,7 +372,7 @@ border : none;
              <number>0</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" name="tabContainer" stretch="">
+             <layout class="QHBoxLayout" name="tabContainer">
               <property name="spacing">
                <number>2</number>
               </property>

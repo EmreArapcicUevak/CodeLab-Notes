@@ -3,6 +3,7 @@
 #include <QAction>
 #include <QFileDialog>
 #include <QFileSystemModel>
+#include <QAbstractScrollArea>
 
 #include "openedfiletab.h"
 
@@ -18,6 +19,12 @@ CodeEditor::CodeEditor(QWidget *parent)
     createTab("document.txt");
     createTab("ddkadjddj");
     setUpMenu();
+
+
+    ui->opened_files_tab_holder->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+
+
     this->dirModel = new QFileSystemModel(this);
     this->dirModel->setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
     this->dirModel->setRootPath(QString());

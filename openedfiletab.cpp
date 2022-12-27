@@ -24,16 +24,16 @@ OpenedFileTab::OpenedFileTab(QString text) {
     layout->setSpacing(0);
     this->setObjectName("openedTab");
     deleteBtn->setIconSize(QSize(25,25));
+    this->setMaximumSize(QSize(10000, 36));
     this->setStyleSheet("background-color : #353638;"
                         "color : #c5c5c5;"
-                        "border-radius : 5px;"
+                        "border-top-left-radius : 5px;"
+                        "border-top-right-radius : 5px;"
                         "margin : 0;"
                         "padding : 0;");
 
     deleteBtn->setStyleSheet("border : none;");
-    iconHolder->setStyleSheet("padding-right : 5px;"
-                              "padding-bottom : 3px;");
-    label->setStyleSheet("padding-bottom : 3px");
+    iconHolder->setStyleSheet("padding-right : 5px;");
 }
 
 void OpenedFileTab::paintEvent(QPaintEvent* event) {
@@ -52,7 +52,8 @@ void OpenedFileTab::mousePressEvent(QMouseEvent *event) {
 
 void OpenedFileTab::tabPressed() {
     this->setStyleSheet("background-color : #27282a;"
-                        "border-radius : 5px;"
+                        "border-top-left-radius : 5px;"
+                        "border-top-right-radius : 5px;"
                         "color : white;"
                         "margin : 0;"
                         "padding : 0;");

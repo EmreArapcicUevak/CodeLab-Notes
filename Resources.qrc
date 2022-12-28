@@ -16,5 +16,6 @@
         <file>Resources/Logos/cpp_logo_icon.jpg</file>
         <file>Resources/Logos/c_logo_icon.jpg</file>
         <file>Resources/Icons/save_file_icon.svg</file>
+        <file>Resources/Icons/main_icon.ico</file>
     </qresource>
 </RCC>

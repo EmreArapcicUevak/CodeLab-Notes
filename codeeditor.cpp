@@ -28,7 +28,6 @@ CodeEditor::CodeEditor(QWidget *parent)
 
     highlighter = new Highlighter(ui->editor->document());
 
-
     QToolBar* toolBar = new QToolBar();
     ui->toolbarHolder->addWidget(toolBar);
     toolBar->addAction(ui->actionRemove);

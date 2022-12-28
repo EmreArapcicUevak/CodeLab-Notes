@@ -26,15 +26,7 @@
    <string>CodeLab Notes</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* 
-#27282a - Dark Gray
-#353638 - Normal Gray
-#454648 - Lighter Gray
-#c5c5c5 -  Icon Gray
-#3FFF00 - Harlequin Green
-*/
-
-QMainWindow {
+   <string notr="true">QMainWindow {
 background-color: &quot;#454648&quot;;
 }</string>
   </property>
@@ -118,7 +110,7 @@ background-color: &quot;#454648&quot;;
          <number>3</number>
         </property>
         <item>
-         <widget class="QWidget" name="toolboxHolder" native="true">
+         <widget class="QWidget" name="toolBarHolder" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -134,15 +126,22 @@ background-color: &quot;#454648&quot;;
 }
 
 QToolButton {
-	/*background-color : #353638;*/
 	background-color : #555555;
-	margin : 0 10;
-	padding : 5 0;
+	margin : 0 10px;
+	padding : 5px 0;
+}
+
+QToolButton:hover { 
+	margin : 0 10px;
+	padding : 5px 0;
+	border : none;
+	border-radius : 5px;
+	background-color: #454648;
 }
 
 </string>
           </property>
-          <layout class="QHBoxLayout" name="toolbarHolder" stretch="">
+          <layout class="QHBoxLayout" name="toolbarHolder">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -534,7 +533,8 @@ background-color : #27282a;
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="styleSheet">
-    <string notr="true">background-color : &quot;#27282a&quot;;</string>
+    <string notr="true">/*background-color : &quot;#27282a&quot;;*/
+background-color : #555555;</string>
    </property>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -547,8 +547,31 @@ background-color : #27282a;
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color : &quot;#27282a&quot;;
-color: white;</string>
+    <string notr="true">QMenuBar {
+	background-color : #27282a;
+	color: white;
+}
+
+QMenuBar::item {
+	background-color : #27282a;
+}
+
+QMenuBar::item:selected {
+	background-color : #353638;
+}
+
+QMenu {
+	background-color : #27282a;
+}
+
+QMenu::item:selected {
+     background-color : #353638;
+	 color : white;
+ }
+</string>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -590,6 +613,9 @@ color: white;</string>
     <addaction name="actionCompiler"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="title">
      <string>About</string>
     </property>

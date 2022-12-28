@@ -127,13 +127,15 @@ background-color: &quot;#454648&quot;;
           </property>
           <property name="styleSheet">
            <string notr="true">QToolBar {
-	background-color : #353638;
+	/*background-color : #353638;*/
+	background-color : #555555;
 	border-top-left-radius : 5px;
 	border-top-right-radius : 5px;
 }
 
 QToolButton {
-	background-color : #353638;
+	/*background-color : #353638;*/
+	background-color : #555555;
 	margin : 0 10;
 	padding : 5 0;
 }
@@ -173,6 +175,8 @@ QToolButton {
 	color : white;
 	border : none;
 	padding-top : 10px;
+	padding-left : 0px;
+	padding-right : 0px;
 }
 
 QScrollBar:vertical {
@@ -190,29 +194,29 @@ QScrollBar:horizontal {
 }
 
 QScrollBar::handle:vertical {
-	background-color : #454648;
-	border  : 2px solid #454648;
-	border-radius : 0px;
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 2px;
 	width : 10px;
 }
 
 QScrollBar::handle:horizontal {
-	background-color : #454648;
-	border  : 2px solid #454648;
-	border-radius : 0px;
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 2px;
 	height : 10px;
 }
 
 QScrollBar::handle:vertical:pressed {
-	background-color : #454648;
-	border  : 2px solid #454648;
+	background-color : #555555;
+	border  : 2px solid #555555;
 	border-radius : 5px;
 	width : 10px;
 }
 
 QScrollBar::handle:horizontal:pressed {
-	background-color : #454648;
-	border  : 2px solid #454648;
+	background-color : #555555;
+	border  : 2px solid #555555;
 	border-radius : 5px;
 	height : 10px;
 }
@@ -292,9 +296,37 @@ height: 0px;
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QScrollBar {
-	height: 5px;
+           <string notr="true">QScrollBar:horizontal {
 	border : none;
+	background-color : #27282a;
+	border-radius : 0px;
+	height : 5px;
+}
+
+QScrollBar::handle:horizontal {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 1px;
+	height : 5px;
+}
+
+QScrollBar::handle:horizontal:pressed {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 1px;
+	height : 5px;
+}
+
+QScrollBar::add-line {
+height: 0px;
+}
+
+QScrollBar::sub-line {
+height: 0px;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+height: 0px;
 }</string>
           </property>
           <property name="verticalScrollBarPolicy">
@@ -432,29 +464,29 @@ QScrollBar:horizontal {
 }
 
 QScrollBar::handle:vertical {
-	background-color : #353638;
-	border  : 2px solid #353638;
-	border-radius : 0px;
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 2px;
 	width : 10px;
 }
 
 QScrollBar::handle:horizontal {
-	background-color : #353638;
-	border  : 2px solid #353638;
-	border-radius : 0px;
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 2px;
 	height : 10px;
 }
 
 QScrollBar::handle:vertical:pressed {
-	background-color : #353638;
-	border  : 2px solid #353638;
+	background-color : #555555;
+	border  : 2px solid #555555;
 	border-radius : 5px;
 	width : 10px;
 }
 
 QScrollBar::handle:horizontal:pressed {
-	background-color : #353638;
-	border  : 2px solid #353638;
+	background-color : #555555;
+	border  : 2px solid #555555;
 	border-radius : 5px;
 	height : 10px;
 }

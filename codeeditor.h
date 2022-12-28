@@ -15,7 +15,7 @@ public:
     CodeEditor(QWidget *parent = nullptr);
     ~CodeEditor();
 
-    void createTab(QString text);
+    void createTab(QString text, bool pressed);
     void setWorkingDirectory(const QString &newWorkingDirectory);
 signals:
     void workingDirectoryChanged();

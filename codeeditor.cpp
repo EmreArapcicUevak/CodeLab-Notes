@@ -14,11 +14,11 @@ CodeEditor::CodeEditor(QWidget *parent)
     ui->setupUi(this);
 
 
-    createTab("main.cpp");
-    createTab("cppBetterThanC.c");
-    createTab("header.h");
-    createTab("document.txt");
-    createTab("ddkadjddj");
+    createTab("main.cpp", 1);
+    createTab("cppBetterThanC.c", 0);
+    createTab("header.h", 0);
+    createTab("document.txt", 0);
+    createTab("ddkadjddj", 0);
 
 
 
@@ -50,8 +50,10 @@ CodeEditor::~CodeEditor() {
     delete ui;
 }
 
-void CodeEditor::createTab(QString text) {
+void CodeEditor::createTab(QString text, bool pressed = 0) {
     OpenedFileTab* tab = new OpenedFileTab(text);
+    tab->changeColor(pressed);
+
     QString iconLocation = ":/Resources/Resources/Logos/text_logo_icon.svg";
     if (text.contains(".cpp")) {
         iconLocation = ":/Resources/Resources/Logos/cpp_logo_icon.svg";

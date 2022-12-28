@@ -22,6 +22,16 @@ signals:
     void workingDirectoryChanged();
 private slots:
     void openFolder();
+    void on_actionUndo_triggered();
+
+    void on_actionRedo_triggered();
+
+    void on_actionCut_triggered();
+
+    void on_actionCopy_triggered();
+
+    void on_actionPaste_triggered();
+
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;

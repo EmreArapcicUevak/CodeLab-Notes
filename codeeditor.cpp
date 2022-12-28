@@ -115,3 +115,28 @@ void CodeEditor::aboutCodeLabNotes() {
                    "Source code : <br><a href= \"https://github.com/EmreArapcicUevak/CodeLab-Notes\">https://github.com/EmreArapcicUevak/CodeLab-Notes</a>");
     msgBox.exec();
 }
+
+void CodeEditor::on_actionUndo_triggered() {
+    ui->editor->undo();
+}
+
+
+void CodeEditor::on_actionRedo_triggered() {
+    ui->editor->redo();
+}
+
+
+void CodeEditor::on_actionCut_triggered() {
+    ui->editor->cut();
+}
+
+
+void CodeEditor::on_actionCopy_triggered() {
+    ui->editor->copy();
+}
+
+
+void CodeEditor::on_actionPaste_triggered() {
+    ui->editor->paste();
+}
+

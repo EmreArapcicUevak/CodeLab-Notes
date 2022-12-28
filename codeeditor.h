@@ -17,6 +17,7 @@ public:
 
     void createTab(QString text, bool pressed);
     void setWorkingDirectory(const QString &newWorkingDirectory);
+    void aboutCodeLabNotes();
 signals:
     void workingDirectoryChanged();
 private slots:

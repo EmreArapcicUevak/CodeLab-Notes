@@ -5,6 +5,7 @@
 #include <QFileSystemModel>
 #include <QAbstractScrollArea>
 #include <QToolBar>
+#include <QMessageBox>
 
 #include "openedfiletab.h"
 
@@ -32,7 +33,6 @@ CodeEditor::CodeEditor(QWidget *parent)
     toolBar->addAction(ui->actionNew_File);
     toolBar->addAction(ui->actionSave);
     toolBar->addAction(ui->actionBuild);
-
 
 
     this->dirModel = new QFileSystemModel(this);
@@ -77,18 +77,18 @@ void CodeEditor::setWorkingDirectory(const QString &newWorkingDirectory)
     emit this->workingDirectoryChanged();
 }
 
-void CodeEditor::setUpMenu()
-{
+void CodeEditor::setUpMenu() {
     connect(ui->actionAbout_QT, &QAction::triggered, this, QApplication::aboutQt);
     connect(ui->actionQuit, &QAction::triggered, this, QApplication::quit);
     connect(ui->actionOpen_Folder, &QAction::triggered, this, &CodeEditor::openFolder);
+    connect(ui->actionAbout_CodeLab_Notes, &QAction::triggered, this, &CodeEditor::aboutCodeLabNotes);
 
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
         qDebug() << "Working directory changed!";
     });
 }
 
-void CodeEditor::openFolder(){
+void CodeEditor::openFolder() {
     QString selectedDirectory =  QFileDialog::getExistingDirectory(this,"Select Working Directory", QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     if (!selectedDirectory.isEmpty()){
@@ -99,7 +99,19 @@ void CodeEditor::openFolder(){
     }
 }
 
-void CodeEditor::updateTreeView()
-{
+void CodeEditor::updateTreeView() {
     ui->treeView->setModel(this->dirModel);
+}
+
+void CodeEditor::aboutCodeLabNotes() {
+
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle("About CodeLab Notes");
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setText("This program is made for the CS103 project at IUS.<br>"
+                   "Made by : <br>"
+                   "<a href= \"https://github.com/VedadSiljic\">Vedad Siljic</a><br>"
+                   "<a href= \"https://github.com/EmreArapcicUevak\">Emre Arapcic Uevak</a><br>"
+                   "Source code : <br><a href= \"https://github.com/EmreArapcicUevak/CodeLab-Notes\">https://github.com/EmreArapcicUevak/CodeLab-Notes</a>");
+    msgBox.exec();
 }

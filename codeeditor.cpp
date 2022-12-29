@@ -12,6 +12,8 @@
 
 #include "openedfiletab.h"
 
+
+
 CodeEditor::CodeEditor(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CodeEditor) {
@@ -47,6 +49,9 @@ CodeEditor::CodeEditor(QWidget *parent)
 
 
 CodeEditor::~CodeEditor() {
+    for (unsigned int i = 0; i < activeFiles.count(); i++)
+        delete activeFiles[i];
+    activeFiles.clear();
     delete ui;
 }
 
@@ -105,7 +110,7 @@ void CodeEditor::setUpTreeView()
 
 void CodeEditor::openFolder(){
 
-    QString selectedDirectory =  QFileDialog::getExistingDirectory(this,"Select Working Directory", QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QString selectedDirectory = QFileDialog::getExistingDirectory(this,"Select Working Directory", QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     if (!selectedDirectory.isEmpty()){
         this->workingDirectory = selectedDirectory;
@@ -119,10 +124,27 @@ void CodeEditor::openFolder(){
 }
 
 
-void CodeEditor::updateTreeView()
-{
+void CodeEditor::updateTreeView(){
     ui->treeView->setRootIndex(this->dirModel->index(this->workingDirectory));
+}
 
+activeFileInformation::activeFileInformation(const QString &fileName, QFile *fileInstance){
+    this->fileInstance = fileInstance;
+
+    int dotIndex = fileName.size();
+    while (dotIndex > 0 && fileName[--dotIndex] != '.');
+    this->fileName = fileName;
+
+    if (dotIndex != 0)
+        this->fileExtension = fileName.sliced(dotIndex+1);
+
+    qDebug() << fileInstance->fileName() << this->fileName << this->fileExtension;
+}
+
+activeFileInformation::~activeFileInformation()
+{
+    qDebug() << this->fileInstance->fileName() << "Freed";
+    delete this->fileInstance;
 }
 
 void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
@@ -136,9 +158,23 @@ void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
         cur = cur.parent();
     }
     path = this->workingDirectory + '/' + path.sliced(0,path.size()-1);
-    QFileInfo fileInfo(path);
+    openFile(path, index.data().toString());
+}
 
-    qDebug() << this->workingDirectory << path << fileInfo.exists() << fileInfo.isDir() << fileInfo.isFile();
+void CodeEditor::openFile(const QString &filePath, const QString &fileName)
+{
+    QFileInfo fileInfo(filePath);
+    if (fileInfo.exists() && fileInfo.isFile()){
+        for (unsigned int i = 0; i < activeFiles.count(); i++)
+            if (activeFiles[i]->fileInstance->fileName() == filePath){
+                QMessageBox::warning(this,"File couldn't open", "This file is already open", QMessageBox::Ok,QMessageBox::Ok);
+                return;
+            }
+        activeFiles.append(new activeFileInformation(fileName,new QFile(filePath)));
+    }else
+        QMessageBox::warning(this,"File couldn't open", "There was a problem trying to open a file", QMessageBox::Ok,QMessageBox::Ok);
+
+
 }
 
 void CodeEditor::aboutCodeLabNotes() {

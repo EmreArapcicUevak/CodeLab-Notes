@@ -22,10 +22,13 @@ signals:
 private slots:
     void openFolder();
     void updateTreeView();
+    void on_treeView_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;
-    QString workingDirectory;
+    QString workingDirectory, rootFileName;
+    QList<QFile> activeFiles;
 
     void setUpMenu();
     void setUpTreeView();

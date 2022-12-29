@@ -5,6 +5,7 @@
 #include <QFileSystemModel>
 #include <QDir>
 #include <QTreeWidgetItemIterator>
+#include <QTreeView>
 #include "openedfiletab.h"
 
 CodeEditor::CodeEditor(QWidget *parent)
@@ -74,7 +75,7 @@ void CodeEditor::setUpTreeView()
     this->dirModel = new QFileSystemModel(this);
     this->dirModel->setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
     this->dirModel->setRootPath(QString());
-    this->dirModel->setReadOnly(false);
+    this->dirModel->setReadOnly(true);
     this->workingDirectory = QString();
 
     ui->treeView->setAnimated(true);
@@ -86,6 +87,11 @@ void CodeEditor::openFolder(){
 
     if (!selectedDirectory.isEmpty()){
         this->workingDirectory = selectedDirectory;
+
+        unsigned int i = selectedDirectory.size();
+        while (selectedDirectory[--i] != '/');
+        this->rootFileName = selectedDirectory.sliced(i+1);
+
         emit this->workingDirectoryChanged();
     }
 }
@@ -95,3 +101,20 @@ void CodeEditor::updateTreeView()
     ui->treeView->setRootIndex(this->dirModel->index(this->workingDirectory));
 
 }
+
+void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
+    if (this->workingDirectory.isEmpty())
+        return;
+
+    QString path = QString();
+    QModelIndex cur = index;
+    while (cur.data().toString() != this->rootFileName){
+        path = QString("%1/%3").arg(cur.data().toString()).arg(path);
+        cur = cur.parent();
+    }
+    path = this->workingDirectory + path.sliced(0,path.size()-1);
+    QFileInfo fileInfo(path);
+
+    qDebug() << path << fileInfo.exists() << fileInfo.isDir() << fileInfo.isFile();
+}
+

@@ -101,6 +101,10 @@ void CodeEditor::setUpTreeView()
 
     ui->treeView->setAnimated(true);
     ui->treeView->setModel(this->dirModel);
+
+    ui->treeView->hideColumn(1);
+    ui->treeView->hideColumn(2);
+    ui->treeView->hideColumn(3);
 }
 
 void CodeEditor::openFolder(){

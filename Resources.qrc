@@ -17,5 +17,6 @@
         <file>Resources/Logos/c_logo_icon.jpg</file>
         <file>Resources/Icons/save_file_icon.svg</file>
         <file>Resources/Icons/main_icon.ico</file>
+        <file>Resources/Fonts/FiraCode-VariableFont_wght.ttf</file>
     </qresource>
 </RCC>

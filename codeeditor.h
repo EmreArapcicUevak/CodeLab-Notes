@@ -22,22 +22,23 @@ signals:
     void workingDirectoryChanged();
 private slots:
     void openFolder();
+    void updateTreeView();
+    void on_treeView_doubleClicked(const QModelIndex &index);
+
     void on_actionUndo_triggered();
-
     void on_actionRedo_triggered();
-
     void on_actionCut_triggered();
-
     void on_actionCopy_triggered();
-
     void on_actionPaste_triggered();
+
 
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;
-    QString workingDirectory;
+    QString workingDirectory, rootFileName;
+    QList<QFile> activeFiles;
 
     void setUpMenu();
-    void updateTreeView();
+    void setUpTreeView();
 };
 #endif // CODEEDITOR_H

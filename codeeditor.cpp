@@ -3,6 +3,9 @@
 #include <QAction>
 #include <QFileDialog>
 #include <QFileSystemModel>
+#include <QDir>
+#include <QTreeWidgetItemIterator>
+#include <QTreeView>
 #include <QAbstractScrollArea>
 #include <QToolBar>
 #include <QMessageBox>
@@ -13,6 +16,7 @@ CodeEditor::CodeEditor(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CodeEditor) {
     ui->setupUi(this);
+
 
 
     createTab("main.cpp", 1);
@@ -35,14 +39,11 @@ CodeEditor::CodeEditor(QWidget *parent)
     toolBar->addAction(ui->actionBuild);
 
 
-    this->dirModel = new QFileSystemModel(this);
-    this->dirModel->setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
-    this->dirModel->setRootPath(QString());
-    this->updateTreeView();
-    ui->treeView->hideColumn(1);
-    ui->treeView->hideColumn(2);
-    ui->treeView->hideColumn(3);
+    // Set up all the connections for actions
+    setUpMenu();
 
+    // Set up default values for the tree directory view
+    setUpTreeView();
 }
 
 
@@ -81,27 +82,65 @@ void CodeEditor::setUpMenu() {
     connect(ui->actionAbout_QT, &QAction::triggered, this, QApplication::aboutQt);
     connect(ui->actionQuit, &QAction::triggered, this, QApplication::quit);
     connect(ui->actionOpen_Folder, &QAction::triggered, this, &CodeEditor::openFolder);
+    connect(this, &CodeEditor::workingDirectoryChanged, this, &CodeEditor::updateTreeView);
     connect(ui->actionAbout_CodeLab_Notes, &QAction::triggered, this, &CodeEditor::aboutCodeLabNotes);
+
 
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
         qDebug() << "Working directory changed!";
     });
 }
 
-void CodeEditor::openFolder() {
+
+void CodeEditor::setUpTreeView()
+{
+    this->dirModel = new QFileSystemModel(this);
+    this->dirModel->setFilter(QDir::NoDotAndDotDot | QDir::Dirs | QDir::Files);
+    this->dirModel->setRootPath(QString());
+    this->dirModel->setReadOnly(true);
+    this->workingDirectory = QString();
+
+    ui->treeView->setAnimated(true);
+    ui->treeView->setModel(this->dirModel);
+}
+
+void CodeEditor::openFolder(){
+
     QString selectedDirectory =  QFileDialog::getExistingDirectory(this,"Select Working Directory", QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     if (!selectedDirectory.isEmpty()){
         this->workingDirectory = selectedDirectory;
-        this->dirModel->setRootPath(this->workingDirectory);
-        this->updateTreeView();
+
+        unsigned int i = selectedDirectory.size();
+        while (selectedDirectory[--i] != '/');
+        this->rootFileName = selectedDirectory.sliced(i+1);
+
         emit this->workingDirectoryChanged();
     }
 }
 
-void CodeEditor::updateTreeView() {
-    ui->treeView->setModel(this->dirModel);
+
+void CodeEditor::updateTreeView()
+{
+    ui->treeView->setRootIndex(this->dirModel->index(this->workingDirectory));
+
 }
+
+void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
+    if (this->workingDirectory.isEmpty())
+        return;
+
+    QString path = QString();
+    QModelIndex cur = index;
+    while (cur.data().toString() != this->rootFileName){
+        path = QString("%1/%3").arg(cur.data().toString()).arg(path);
+        cur = cur.parent();
+    }
+    path = this->workingDirectory + path.sliced(0,path.size()-1);
+    QFileInfo fileInfo(path);
+
+    qDebug() << path << fileInfo.exists() << fileInfo.isDir() << fileInfo.isFile();
+
 
 void CodeEditor::aboutCodeLabNotes() {
 

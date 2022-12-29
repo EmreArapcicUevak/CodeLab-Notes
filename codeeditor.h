@@ -42,7 +42,7 @@ private slots:
     void on_actionCopy_triggered();
     void on_actionPaste_triggered();
 
-
+    void fileCloseSlot(const QString &);
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;

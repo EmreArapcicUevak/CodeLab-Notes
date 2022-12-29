@@ -49,8 +49,8 @@ CodeEditor::CodeEditor(QWidget *parent)
 
 
 CodeEditor::~CodeEditor() {
-    for (unsigned int i = 0; i < activeFiles.count(); i++)
-        delete activeFiles[i];
+    for (QList<activeFileInformation*>::ConstIterator i = activeFiles.constBegin() ; i < activeFiles.constEnd(); i++)
+        delete *i;
     activeFiles.clear();
     delete ui;
 }
@@ -212,5 +212,13 @@ void CodeEditor::on_actionCopy_triggered() {
 
 void CodeEditor::on_actionPaste_triggered() {
     ui->editor->paste();
+}
+
+void CodeEditor::fileCloseSlot(const QString &filePath){
+    for (QList<activeFileInformation*>::ConstIterator i = activeFiles.constBegin() ; i < activeFiles.constEnd(); i++)
+        if ((*i)->fileInstance->fileName() == filePath){
+            activeFiles.erase(i);
+            break;
+        }
 }
 

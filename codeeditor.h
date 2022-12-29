@@ -4,6 +4,8 @@
 #include "qfilesystemmodel.h"
 #include <QMainWindow>
 
+#include "highlighter.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class CodeEditor; }
 QT_END_NAMESPACE
@@ -37,6 +39,8 @@ private:
     QFileSystemModel* dirModel;
     QString workingDirectory, rootFileName;
     QList<QFile> activeFiles;
+
+    Highlighter* highlighter;
 
     void setUpMenu();
     void setUpTreeView();

@@ -19,11 +19,13 @@ set(PROJECT_SOURCES
         codeeditor.cpp
         editor.cpp
         openedfiletab.cpp
+        highlighter.cpp
 
         codeeditor.h
         linenumberarea.h
         editor.h
         openedfiletab.h
+        highlighter.h
 
         codeeditor.ui
 

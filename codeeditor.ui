@@ -446,15 +446,17 @@ background-position: center;
             <widget class="Editor" name="editor">
              <property name="font">
               <font>
+               <family>Fira Code SemiBold</family>
                <pointsize>14</pointsize>
+               <bold>true</bold>
               </font>
              </property>
              <property name="styleSheet">
               <string notr="true">#editor {
 background-color : #27282a;
+color : white;
 border : none;
 padding-top : 10px;
-color : white;
 }
 
 QScrollBar:vertical {
@@ -525,6 +527,9 @@ background-color : #27282a;
              </property>
              <property name="lineWrapMode">
               <enum>QPlainTextEdit::NoWrap</enum>
+             </property>
+             <property name="tabStopDistance">
+              <double>40.000000000000000</double>
              </property>
              <property name="placeholderText">
               <string/>

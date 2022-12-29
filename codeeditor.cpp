@@ -136,11 +136,11 @@ void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
         path = QString("%1/%3").arg(cur.data().toString()).arg(path);
         cur = cur.parent();
     }
-    path = this->workingDirectory + path.sliced(0,path.size()-1);
+    path = this->workingDirectory + '/' + path.sliced(0,path.size()-1);
     QFileInfo fileInfo(path);
 
-    qDebug() << path << fileInfo.exists() << fileInfo.isDir() << fileInfo.isFile();
-
+    qDebug() << this->workingDirectory << path << fileInfo.exists() << fileInfo.isDir() << fileInfo.isFile();
+}
 
 void CodeEditor::aboutCodeLabNotes() {
 

@@ -26,16 +26,18 @@
    <string>CodeLab Notes</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* 
-#27282a - Dark Gray
-#353638 - Normal Gray
-#454648 - Lighter Gray
-#c5c5c5 -  Icon Gray
-#3FFF00 - Harlequin Green
-*/
+   <string notr="true">QMainWindow {
+background-color: #454648;
+}
 
-QMainWindow {
-background-color: &quot;#454648&quot;;
+QDialog {
+	background-color : #27282a;
+	color : white;
+}
+
+QPushButton {
+	background-color : #27282a;
+	color : white;
 }</string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -52,7 +54,10 @@ background-color: &quot;#454648&quot;;
     </size>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color : &quot;#454648&quot;;</string>
+    <string notr="true">QWidget {
+	background-color : #454648;
+}
+</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <property name="spacing">
@@ -114,141 +119,53 @@ background-color: &quot;#454648&quot;;
          <number>3</number>
         </property>
         <item>
-         <widget class="QWidget" name="btn_holder_layout" native="true">
+         <widget class="QWidget" name="toolBarHolder" native="true">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color : &quot;#353638&quot;;</string>
+           <string notr="true">QToolBar {
+	/*background-color : #353638;*/
+	background-color : #555555;
+	border-top-left-radius : 5px;
+	border-top-right-radius : 5px;
+}
+
+QToolButton {
+	background-color : #555555;
+	margin : 0 10px;
+	padding : 5px 0;
+}
+
+QToolButton:hover { 
+	margin : 0 10px;
+	padding : 5px 0;
+	border : none;
+	border-radius : 5px;
+	background-color: #454648;
+}
+
+</string>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <widget class="QPushButton" name="add_file_btn">
-             <property name="maximumSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color : &quot;transparent&quot;;
-border : none;
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="Resources.qrc">
-               <normaloff>:/Resources/Resources/Icons/add_file_icon.svg</normaloff>:/Resources/Resources/Icons/add_file_icon.svg</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="add_folder_btn">
-             <property name="maximumSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color : &quot;transparent&quot;;
-border : none;
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="Resources.qrc">
-               <normaloff>:/Resources/Resources/Icons/add_folder_icon.svg</normaloff>:/Resources/Resources/Icons/add_folder_icon.svg</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="remove_btn">
-             <property name="maximumSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color : &quot;transparent&quot;;
-border : none;
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="Resources.qrc">
-               <normaloff>:/Resources/Resources/Icons/remove_file_folder_icon.svg</normaloff>:/Resources/Resources/Icons/remove_file_folder_icon.svg</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="build_btn">
-             <property name="maximumSize">
-              <size>
-               <width>24</width>
-               <height>24</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-color : &quot;transparent&quot;;
-border : none;
-</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="Resources.qrc">
-               <normaloff>:/Resources/Resources/Icons/build_icon.svg</normaloff>:/Resources/Resources/Icons/build_icon.svg</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-             <property name="autoRepeat">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
+          <layout class="QHBoxLayout" name="toolbarHolder">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
           </layout>
          </widget>
         </item>
@@ -261,8 +178,75 @@ border : none;
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color : &quot;#353638&quot;;</string>
+           <string notr="true">#treeView {
+	background-color : #353638;
+	color : white;
+	border : none;
+	padding-top : 10px;
+	padding-left : 0px;
+	padding-right : 0px;
+}
+
+QScrollBar:vertical {
+	border : none;
+	background-color : #353638;
+	border-radius : 0px;
+	width : 10px;
+}
+
+QScrollBar:horizontal {
+	border : none;
+	background-color : #353638;
+	border-radius : 0px;
+	height : 10px;
+}
+
+QScrollBar::handle:vertical {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 2px;
+	width : 10px;
+}
+
+QScrollBar::handle:horizontal {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 2px;
+	height : 10px;
+}
+
+QScrollBar::handle:vertical:pressed {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 5px;
+	width : 10px;
+}
+
+QScrollBar::handle:horizontal:pressed {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 5px;
+	height : 10px;
+}
+
+QScrollBar::add-line {
+height: 0px;
+}
+
+QScrollBar::sub-line {
+height: 0px;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+height: 0px;
+}</string>
           </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <attribute name="headerVisible">
+           <bool>false</bool>
+          </attribute>
          </widget>
         </item>
        </layout>
@@ -320,9 +304,37 @@ border : none;
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QScrollBar {
-	height: 5px;
+           <string notr="true">QScrollBar:horizontal {
 	border : none;
+	background-color : #27282a;
+	border-radius : 0px;
+	height : 5px;
+}
+
+QScrollBar::handle:horizontal {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 1px;
+	height : 5px;
+}
+
+QScrollBar::handle:horizontal:pressed {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 1px;
+	height : 5px;
+}
+
+QScrollBar::add-line {
+height: 0px;
+}
+
+QScrollBar::sub-line {
+height: 0px;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+height: 0px;
 }</string>
           </property>
           <property name="verticalScrollBarPolicy">
@@ -340,11 +352,11 @@ border : none;
              <x>0</x>
              <y>0</y>
              <width>16</width>
-             <height>38</height>
+             <height>16</height>
             </rect>
            </property>
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -372,7 +384,7 @@ border : none;
              <number>0</number>
             </property>
             <item>
-             <layout class="QHBoxLayout" name="tabContainer" stretch="">
+             <layout class="QHBoxLayout" name="tabContainer">
               <property name="spacing">
                <number>2</number>
               </property>
@@ -438,9 +450,84 @@ background-position: center;
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">background-color : &quot;#27282a&quot;;
+              <string notr="true">#editor {
+background-color : #27282a;
 border : none;
-padding-top : 10px;</string>
+padding-top : 10px;
+color : white;
+}
+
+QScrollBar:vertical {
+	border : none;
+	background-color : #27282a;
+	border-radius : 0px;
+	width : 10px;
+}
+
+QScrollBar:horizontal {
+	border : none;
+	background-color : #27282a;
+	border-radius : 0px;
+	height : 10px;
+}
+
+QScrollBar::handle:vertical {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 2px;
+	width : 10px;
+}
+
+QScrollBar::handle:horizontal {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 2px;
+	height : 10px;
+}
+
+QScrollBar::handle:vertical:pressed {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 5px;
+	width : 10px;
+}
+
+QScrollBar::handle:horizontal:pressed {
+	background-color : #555555;
+	border  : 2px solid #555555;
+	border-radius : 5px;
+	height : 10px;
+}
+
+QScrollBar::add-line {
+height: 0px;
+background-color : #27282a;
+}
+
+QScrollBar::sub-line {
+height: 0px;
+background-color : #27282a;
+}
+
+QScrollBar::add-page, QScrollBar::sub-page {
+height: 0px;
+background-color : #27282a;
+}</string>
+             </property>
+             <property name="inputMethodHints">
+              <set>Qt::ImhNone</set>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="sizeAdjustPolicy">
+              <enum>QAbstractScrollArea::AdjustToContents</enum>
+             </property>
+             <property name="lineWrapMode">
+              <enum>QPlainTextEdit::NoWrap</enum>
+             </property>
+             <property name="placeholderText">
+              <string/>
              </property>
             </widget>
            </item>
@@ -455,7 +542,8 @@ padding-top : 10px;</string>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="styleSheet">
-    <string notr="true">background-color : &quot;#27282a&quot;;</string>
+    <string notr="true">/*background-color : &quot;#27282a&quot;;*/
+background-color : #555555;</string>
    </property>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -468,24 +556,51 @@ padding-top : 10px;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color : &quot;#27282a&quot;;
-color: &quot;#c5c5c5&quot;;</string>
+    <string notr="true">QMenuBar {
+	background-color : #27282a;
+	color: white;
+}
+
+QMenuBar::item {
+	background-color : #27282a;
+}
+
+QMenuBar::item:selected {
+	background-color : #353638;
+}
+
+QMenu {
+	background-color : #27282a;
+}
+
+QMenu::item:selected {
+     background-color : #353638;
+	 color : white;
+ }
+</string>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNew_Text_File"/>
     <addaction name="actionNew_File"/>
+    <addaction name="actionNew_Folder"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_File"/>
     <addaction name="actionOpen_Folder"/>
+    <addaction name="separator"/>
+    <addaction name="actionBuild"/>
     <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionSave_All"/>
     <addaction name="separator"/>
     <addaction name="actionAuto_Save"/>
+    <addaction name="separator"/>
+    <addaction name="actionRemove"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -507,6 +622,9 @@ color: &quot;#c5c5c5&quot;;</string>
     <addaction name="actionCompiler"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="title">
      <string>About</string>
     </property>
@@ -528,12 +646,11 @@ color: &quot;#c5c5c5&quot;;</string>
     <string>About QT</string>
    </property>
   </action>
-  <action name="actionNew_Text_File">
-   <property name="text">
-    <string>New Text File</string>
-   </property>
-  </action>
   <action name="actionNew_File">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/add_file_icon.svg</normaloff>:/Resources/Resources/Icons/add_file_icon.svg</iconset>
+   </property>
    <property name="text">
     <string>New File</string>
    </property>
@@ -549,6 +666,10 @@ color: &quot;#c5c5c5&quot;;</string>
    </property>
   </action>
   <action name="actionSave">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/save_file_icon.svg</normaloff>:/Resources/Resources/Icons/save_file_icon.svg</iconset>
+   </property>
    <property name="text">
     <string>Save</string>
    </property>
@@ -564,6 +685,9 @@ color: &quot;#c5c5c5&quot;;</string>
    </property>
   </action>
   <action name="actionAuto_Save">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Auto Save</string>
    </property>
@@ -601,6 +725,33 @@ color: &quot;#c5c5c5&quot;;</string>
   <action name="actionCompiler">
    <property name="text">
     <string>Compiler</string>
+   </property>
+  </action>
+  <action name="actionBuild">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/build_icon.svg</normaloff>:/Resources/Resources/Icons/build_icon.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Build</string>
+   </property>
+  </action>
+  <action name="actionNew_Folder">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/add_folder_icon.svg</normaloff>:/Resources/Resources/Icons/add_folder_icon.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New Folder</string>
+   </property>
+  </action>
+  <action name="actionRemove">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Resources/Resources/Icons/remove_file_folder_icon.svg</normaloff>:/Resources/Resources/Icons/remove_file_folder_icon.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Remove</string>
    </property>
   </action>
  </widget>

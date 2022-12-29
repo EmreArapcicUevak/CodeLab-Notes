@@ -13,8 +13,9 @@
 class OpenedFileTab : public QWidget {
 
     Q_OBJECT
-
 public:
+    void changeColor(bool pressed);
+
     QLabel* iconHolder;
     QHBoxLayout* layout;
     QLabel* label;

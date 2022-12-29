@@ -15,14 +15,22 @@ public:
     CodeEditor(QWidget *parent = nullptr);
     ~CodeEditor();
 
-    void createTab(QString text);
+    void createTab(QString text, bool pressed);
     void setWorkingDirectory(const QString &newWorkingDirectory);
+    void aboutCodeLabNotes();
 signals:
     void workingDirectoryChanged();
 private slots:
     void openFolder();
     void updateTreeView();
     void on_treeView_doubleClicked(const QModelIndex &index);
+
+    void on_actionUndo_triggered();
+    void on_actionRedo_triggered();
+    void on_actionCut_triggered();
+    void on_actionCopy_triggered();
+    void on_actionPaste_triggered();
+
 
 private:
     Ui::CodeEditor *ui;

@@ -27,9 +27,6 @@ CodeEditor::CodeEditor(QWidget *parent)
 
 
 
-    setUpMenu();
-
-
     highlighter = new Highlighter(ui->editor->document());
 
     QToolBar* toolBar = new QToolBar();

@@ -32,17 +32,25 @@ public:
 signals:
     void workingDirectoryChanged();
 private slots:
-    void openFolder();
+    /*Trew view based slots */
     void updateTreeView();
     void on_treeView_doubleClicked(const QModelIndex &index);
 
+    /* Text editor based slots */
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();
     void on_actionCut_triggered();
     void on_actionCopy_triggered();
     void on_actionPaste_triggered();
 
+    /* File/Folder based slots */
+    void openFolder();
     void fileCloseSlot(QString);
+    void createNewFile();
+    void createNewFolder();
+    void saveFile();
+    void saveAllFiles();
+    void saveFileAs();
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;

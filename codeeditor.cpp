@@ -50,35 +50,7 @@ CodeEditor::~CodeEditor() {
     delete ui;
 }
 
-void CodeEditor::createTab(QString text, bool pressed = 0, QString _filePath = "") {
-    OpenedFileTab* tab = new OpenedFileTab(text, _filePath);
-    tab->changeColor(pressed);
-
-
-
-    QString iconLocation = ":/Resources/Resources/Logos/text_logo_icon.svg";
-    if (text.contains(".cpp")) {
-        iconLocation = ":/Resources/Resources/Logos/cpp_logo_icon.svg";
-    }
-    else if (text.contains(".c")) {
-        iconLocation = ":/Resources/Resources/Logos/c_logo_icon.svg";
-    }
-    else if (text.contains(".h")) {
-        iconLocation = ":/Resources/Resources/Logos/header_logo_icon.svg";
-    }
-
-    QPixmap icon(iconLocation);
-    tab->iconHolder->setPixmap(icon.scaled(15, 15, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-
-    ui->tabContainer->addWidget(tab, 0, Qt::AlignLeft);
-
-    connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
-}
-
-void CodeEditor::setWorkingDirectory(const QString &newWorkingDirectory){
-    workingDirectory = newWorkingDirectory;
-    emit this->workingDirectoryChanged();
-}
+/* SET UPS */
 
 void CodeEditor::setUpMenu() {
     connect(ui->actionAbout_QT, &QAction::triggered, this, QApplication::aboutQt);
@@ -115,25 +87,17 @@ void CodeEditor::setUpTreeView()
     ui->treeView->hideColumn(3);
 }
 
-void CodeEditor::openFolder(){
-
-    QString selectedDirectory = QFileDialog::getExistingDirectory(this,"Select Working Directory", QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
-
-    if (!selectedDirectory.isEmpty()){
-        this->workingDirectory = selectedDirectory;
-
-        unsigned int i = selectedDirectory.size();
-        while (selectedDirectory[--i] != '/');
-        this->rootFileName = selectedDirectory.sliced(i+1);
-
-        emit this->workingDirectoryChanged();
+void CodeEditor::checkEditor() {
+    if (activeFiles.size() == 0) {
+        ui->editor->setPlaceholderText("");
+        ui->editor->hide();
+    }else if (activeFiles.size() > 0) {
+        ui->editor->show();
     }
 }
 
 
-void CodeEditor::updateTreeView(){
-    ui->treeView->setRootIndex(this->dirModel->index(this->workingDirectory));
-}
+/* ACTIVE FILE INFORMATION STRUCT SET UP */
 
 activeFileInformation::activeFileInformation(const QString &fileName, QFile *fileInstance){
     this->fileInstance = fileInstance;
@@ -156,35 +120,50 @@ activeFileInformation::~activeFileInformation()
     delete this->fileInstance;
 }
 
-void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
-    if (this->workingDirectory.isEmpty())
-        return;
+/* Other slots */
 
-    QString path = QString();
-    QModelIndex cur = index;
-    while (cur.data().toString() != this->rootFileName){
-        path = QString("%1/%3").arg(cur.data().toString()).arg(path);
-        cur = cur.parent();
-    }
-    path = this->workingDirectory + '/' + path.sliced(0,path.size()-1);
-    openFile(path, index.data().toString());
+void CodeEditor::aboutCodeLabNotes() {
+
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle("About CodeLab Notes");
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setText("This program is made for the CS103 project at IUS.<br>"
+                   "Made by : <br>"
+                   "<a href= \"https://github.com/VedadSiljic\">Vedad Siljic</a><br>"
+                   "<a href= \"https://github.com/EmreArapcicUevak\">Emre Arapcic Uevak</a><br>"
+                   "Source code : <br><a href= \"https://github.com/EmreArapcicUevak/CodeLab-Notes\">https://github.com/EmreArapcicUevak/CodeLab-Notes</a>");
+    msgBox.exec();
 }
 
-void CodeEditor::openFile(const QString &filePath, const QString &fileName) {
-    QFileInfo fileInfo(filePath);
-    if (fileInfo.exists() && fileInfo.isFile()){
-        for (unsigned int i = 0; i < activeFiles.count(); i++)
-            if (activeFiles[i]->fileInstance->fileName() == filePath){
-                QMessageBox::warning(this,"File couldn't open", "This file is already open", QMessageBox::Ok,QMessageBox::Ok);
-                return;
-            } 
-        activeFiles.append(new activeFileInformation(fileName,new QFile(filePath)));
-        displayFile();
+/*
+ *
+ *
+ * CODE EDITOR BASED SLOTS
+ *
+ *
+*/
 
-    }else
-        QMessageBox::warning(this,"File couldn't open", "There was a problem trying to open a file", QMessageBox::Ok,QMessageBox::Ok);
+void CodeEditor::createTab(QString text, bool pressed = 0, QString _filePath = "") {
+    OpenedFileTab* tab = new OpenedFileTab(text, _filePath);
+    tab->changeColor(pressed);
 
+    QString iconLocation = ":/Resources/Resources/Logos/text_logo_icon.svg";
+    if (text.contains(".cpp")) {
+        iconLocation = ":/Resources/Resources/Logos/cpp_logo_icon.svg";
+    }
+    else if (text.contains(".c")) {
+        iconLocation = ":/Resources/Resources/Logos/c_logo_icon.svg";
+    }
+    else if (text.contains(".h")) {
+        iconLocation = ":/Resources/Resources/Logos/header_logo_icon.svg";
+    }
 
+    QPixmap icon(iconLocation);
+    tab->iconHolder->setPixmap(icon.scaled(15, 15, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+
+    ui->tabContainer->addWidget(tab, 0, Qt::AlignLeft);
+
+    connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
 }
 
 void CodeEditor::displayFile() {
@@ -198,19 +177,6 @@ void CodeEditor::displayFile() {
     ui->editor->setPlainText(text);
     createTab(activeFiles[activeFiles.size() - 1]->fileName, 1, activeFiles[activeFiles.size() - 1]->fileInstance->fileName());
     checkEditor();
-}
-
-void CodeEditor::aboutCodeLabNotes() {
-
-    QMessageBox msgBox(this);
-    msgBox.setWindowTitle("About CodeLab Notes");
-    msgBox.setTextFormat(Qt::RichText);
-    msgBox.setText("This program is made for the CS103 project at IUS.<br>"
-                   "Made by : <br>"
-                   "<a href= \"https://github.com/VedadSiljic\">Vedad Siljic</a><br>"
-                   "<a href= \"https://github.com/EmreArapcicUevak\">Emre Arapcic Uevak</a><br>"
-                   "Source code : <br><a href= \"https://github.com/EmreArapcicUevak/CodeLab-Notes\">https://github.com/EmreArapcicUevak/CodeLab-Notes</a>");
-    msgBox.exec();
 }
 
 void CodeEditor::on_actionUndo_triggered() {
@@ -237,6 +203,17 @@ void CodeEditor::on_actionPaste_triggered() {
     ui->editor->paste();
 }
 
+/*
+ *
+ *  FILE BASED SLOTS
+ *
+*/
+
+void CodeEditor::setWorkingDirectory(const QString &newWorkingDirectory){
+    workingDirectory = newWorkingDirectory;
+    emit this->workingDirectoryChanged();
+}
+
 void CodeEditor::fileCloseSlot(QString filePath) {
     qDebug() << filePath;
     for (QList<activeFileInformation*>::ConstIterator i = activeFiles.constBegin() ; i < activeFiles.constEnd(); i++)
@@ -245,6 +222,35 @@ void CodeEditor::fileCloseSlot(QString filePath) {
             checkEditor();
             break;
         }
+}
+
+void CodeEditor::openFile(const QString &filePath, const QString &fileName) {
+    QFileInfo fileInfo(filePath);
+    if (fileInfo.exists() && fileInfo.isFile()){
+        for (unsigned int i = 0; i < activeFiles.count(); i++)
+            if (activeFiles[i]->fileInstance->fileName() == filePath){
+                QMessageBox::warning(this,"File couldn't open", "This file is already open", QMessageBox::Ok,QMessageBox::Ok);
+                return;
+            }
+        activeFiles.append(new activeFileInformation(fileName,new QFile(filePath)));
+        displayFile();
+
+    }else
+        QMessageBox::warning(this,"File couldn't open", "There was a problem trying to open a file", QMessageBox::Ok,QMessageBox::Ok);
+}
+
+void CodeEditor::openFolder(){
+    QString selectedDirectory = QFileDialog::getExistingDirectory(this,"Select Working Directory", QString(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+
+    if (!selectedDirectory.isEmpty()){
+        this->workingDirectory = selectedDirectory;
+
+        unsigned int i = selectedDirectory.size();
+        while (selectedDirectory[--i] != '/');
+        this->rootFileName = selectedDirectory.sliced(i+1);
+
+        emit this->workingDirectoryChanged();
+    }
 }
 
 void CodeEditor::createNewFile()
@@ -272,12 +278,33 @@ void CodeEditor::saveFileAs()
 
 }
 
-void CodeEditor::checkEditor() {
-    if (activeFiles.size() == 0) {
-        ui->editor->setPlaceholderText("");
-        ui->editor->hide();
-    }else if (activeFiles.size() > 0) {
-        ui->editor->show();
+
+
+/*
+ *
+ * TREE VIEW BASED SLOTS
+ *
+*/
+
+
+void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
+    if (this->workingDirectory.isEmpty())
+        return;
+
+    QString path = QString();
+    QModelIndex cur = index;
+    while (cur.data().toString() != this->rootFileName){
+        path = QString("%1/%3").arg(cur.data().toString()).arg(path);
+        cur = cur.parent();
     }
+    path = this->workingDirectory + '/' + path.sliced(0,path.size()-1);
+    openFile(path, index.data().toString());
 }
+
+
+void CodeEditor::updateTreeView(){
+    ui->treeView->setRootIndex(this->dirModel->index(this->workingDirectory));
+}
+
+/* */
 

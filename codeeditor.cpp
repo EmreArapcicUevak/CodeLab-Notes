@@ -21,7 +21,8 @@ CodeEditor::CodeEditor(QWidget *parent)
 
 
 
-    highlighter = new Highlighter(ui->editor->document());
+    highlighter = new Highlighter();
+    setHighlighting(false);
 
     QToolBar* toolBar = new QToolBar();
     ui->toolbarHolder->addWidget(toolBar);
@@ -47,6 +48,7 @@ CodeEditor::~CodeEditor() {
     for (QList<activeFileInformation*>::ConstIterator i = activeFiles.constBegin() ; i < activeFiles.constEnd(); i++)
         delete *i;
     activeFiles.clear();
+    delete highlighter;
     delete ui;
 }
 
@@ -144,8 +146,8 @@ void CodeEditor::aboutCodeLabNotes() {
 */
 
 void CodeEditor::createTab(QString text, bool pressed = 0, QString _filePath = "") {
-    OpenedFileTab* tab = new OpenedFileTab(text, _filePath);
-    tab->changeColor(pressed);
+    OpenedFileTab* tab = new OpenedFileTab(text, _filePath, true);
+    tab->changeColor();
 
     QString iconLocation = ":/Resources/Resources/Logos/text_logo_icon.svg";
     if (text.contains(".cpp")) {
@@ -222,6 +224,13 @@ void CodeEditor::fileCloseSlot(QString filePath) {
             checkEditor();
             break;
         }
+}
+
+void CodeEditor::setHighlighting(bool set) {
+    if (set == true)
+        highlighter->setDocument(ui->editor->document());
+    else
+        highlighter->setDocument(nullptr);
 }
 
 void CodeEditor::openFile(const QString &filePath, const QString &fileName) {

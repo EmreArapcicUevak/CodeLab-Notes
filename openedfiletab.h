@@ -14,14 +14,15 @@ class OpenedFileTab : public QWidget {
 
     Q_OBJECT
 public:
-    void changeColor(bool pressed);
+    void changeColor();
 
+    bool pressed;
     QString filePath;
     QLabel* iconHolder;
     QHBoxLayout* layout;
     QLabel* label;
     QPushButton* deleteBtn;
-    OpenedFileTab(QString text, QString _filePath);
+    OpenedFileTab(QString text, QString _filePath, bool _pressed);
     void paintEvent(QPaintEvent* event) override;
 protected:
     void mousePressEvent(QMouseEvent *event) override;

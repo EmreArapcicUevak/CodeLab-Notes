@@ -4,8 +4,9 @@
 #include <QPainter>
 #include <QStyleOption>
 
-OpenedFileTab::OpenedFileTab(QString text, QString _filePath) {
+OpenedFileTab::OpenedFileTab(QString text, QString _filePath, bool _pressed) {
 
+    pressed = _pressed;
     filePath = _filePath;
     layout = new QHBoxLayout();
     iconHolder = new QLabel("");
@@ -67,7 +68,7 @@ void OpenedFileTab::mousePressEvent(QMouseEvent *event) {
 }
 
 void OpenedFileTab::tabPressed() {
-    changeColor(true);
+    changeColor();
 }
 
 void OpenedFileTab::deletePressed() {
@@ -75,7 +76,10 @@ void OpenedFileTab::deletePressed() {
     delete this;
 }
 
-void OpenedFileTab::changeColor(bool pressed) {
+void OpenedFileTab::changeColor() {
+
+    pressed = !pressed;
+
     if (pressed) {
         this->setProperty("clicked", true);
         deleteBtn->setProperty("clicked", true);

@@ -260,7 +260,19 @@ void CodeEditor::createNewFile(){
 
 void CodeEditor::createNewFolder()
 {
+    QString newFolderPath = QFileDialog::getSaveFileName(this,"Select how you want to save your file",this->workingDirectory, "Folder (*)");
+    qDebug() << newFolderPath;
 
+    if (newFolderPath.isEmpty())
+        return;
+    else{
+        QDir dir(newFolderPath);
+
+        if (dir.exists())
+            QMessageBox::warning(this,"Can not make this directory","A folder with this name already exists");
+        else if (!dir.mkpath(newFolderPath))
+            QMessageBox::warning(this,"Can not make this directory","Something went wrong while creating the directory");
+    }
 }
 
 void CodeEditor::saveFile()

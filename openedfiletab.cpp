@@ -4,8 +4,9 @@
 #include <QPainter>
 #include <QStyleOption>
 
-OpenedFileTab::OpenedFileTab(QString text) {
+OpenedFileTab::OpenedFileTab(QString text, QString _filePath) {
 
+    filePath = _filePath;
     layout = new QHBoxLayout();
     iconHolder = new QLabel("");
     label = new QLabel(text);
@@ -19,7 +20,6 @@ OpenedFileTab::OpenedFileTab(QString text) {
 
     connect(this, &OpenedFileTab::onPressed, this, &OpenedFileTab::tabPressed);
     connect(deleteBtn, &QPushButton::released, this, &OpenedFileTab::deletePressed);
-
 
 
 
@@ -71,6 +71,7 @@ void OpenedFileTab::tabPressed() {
 }
 
 void OpenedFileTab::deletePressed() {
+    emit tabClosed(filePath);
     delete this;
 }
 

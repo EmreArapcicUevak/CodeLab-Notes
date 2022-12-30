@@ -16,17 +16,19 @@ class OpenedFileTab : public QWidget {
 public:
     void changeColor(bool pressed);
 
+    QString filePath;
     QLabel* iconHolder;
     QHBoxLayout* layout;
     QLabel* label;
     QPushButton* deleteBtn;
-    OpenedFileTab(QString text);
+    OpenedFileTab(QString text, QString _filePath);
     void paintEvent(QPaintEvent* event) override;
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 
 signals:
     void onPressed();
+    void tabClosed(QString);
 public slots:
 
     void tabPressed();

@@ -26,7 +26,7 @@ public:
     CodeEditor(QWidget *parent = nullptr);
     ~CodeEditor();
 
-    void createTab(QString text, bool pressed);
+    void createTab(QString text, bool pressed, QString _filePath);
     void setWorkingDirectory(const QString &newWorkingDirectory);
     void aboutCodeLabNotes();
 signals:
@@ -42,7 +42,7 @@ private slots:
     void on_actionCopy_triggered();
     void on_actionPaste_triggered();
 
-    void fileCloseSlot(const QString &);
+    void fileCloseSlot(QString);
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;
@@ -54,5 +54,7 @@ private:
     void setUpMenu();
     void setUpTreeView();
     void openFile(const QString&, const QString &);
+    void displayFile();
+    void checkEditor();
 };
 #endif // CODEEDITOR_H

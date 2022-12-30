@@ -5,10 +5,10 @@
 #include "codeeditor.h"
 
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    a.setStyle(QStyleFactory::create("Fusion"));
-    a.setWindowIcon(QIcon(":/Resources/Resources/Icons/main_icon.ico"));
-    CodeEditor w;
-    w.show();
-    return a.exec();
+    QApplication app(argc, argv);
+    app.setStyle(QStyleFactory::create("Fusion"));
+    app.setWindowIcon(QIcon(":/Resources/Resources/Icons/main_icon.ico"));
+    CodeEditor codeEditor;
+    codeEditor.show();
+    return app.exec();
 }

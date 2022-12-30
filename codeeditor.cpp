@@ -21,14 +21,6 @@ CodeEditor::CodeEditor(QWidget *parent)
 
 
 
-    createTab("main.cpp", 1);
-    createTab("cppBetterThanC.c", 0);
-    createTab("header.h", 0);
-    createTab("document.txt", 0);
-    createTab("ddkadjddj", 0);
-
-
-
     highlighter = new Highlighter(ui->editor->document());
 
     QToolBar* toolBar = new QToolBar();
@@ -45,6 +37,9 @@ CodeEditor::CodeEditor(QWidget *parent)
 
     // Set up default values for the tree directory view
     setUpTreeView();
+
+    // Checks the editor for status
+    checkEditor();
 }
 
 
@@ -55,9 +50,11 @@ CodeEditor::~CodeEditor() {
     delete ui;
 }
 
-void CodeEditor::createTab(QString text, bool pressed = 0) {
-    OpenedFileTab* tab = new OpenedFileTab(text);
+void CodeEditor::createTab(QString text, bool pressed = 0, QString _filePath = "") {
+    OpenedFileTab* tab = new OpenedFileTab(text, _filePath);
     tab->changeColor(pressed);
+
+
 
     QString iconLocation = ":/Resources/Resources/Logos/text_logo_icon.svg";
     if (text.contains(".cpp")) {
@@ -74,6 +71,8 @@ void CodeEditor::createTab(QString text, bool pressed = 0) {
     tab->iconHolder->setPixmap(icon.scaled(15, 15, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 
     ui->tabContainer->addWidget(tab, 0, Qt::AlignLeft);
+
+    connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
 }
 
 void CodeEditor::setWorkingDirectory(const QString &newWorkingDirectory)
@@ -165,19 +164,35 @@ void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
     openFile(path, index.data().toString());
 }
 
-void CodeEditor::openFile(const QString &filePath, const QString &fileName)
-{
+void CodeEditor::openFile(const QString &filePath, const QString &fileName) {
     QFileInfo fileInfo(filePath);
     if (fileInfo.exists() && fileInfo.isFile()){
         for (unsigned int i = 0; i < activeFiles.count(); i++)
             if (activeFiles[i]->fileInstance->fileName() == filePath){
                 QMessageBox::warning(this,"File couldn't open", "This file is already open", QMessageBox::Ok,QMessageBox::Ok);
                 return;
-            }
+            } 
         activeFiles.append(new activeFileInformation(fileName,new QFile(filePath)));
+        displayFile();
+
     }else
         QMessageBox::warning(this,"File couldn't open", "There was a problem trying to open a file", QMessageBox::Ok,QMessageBox::Ok);
 
+
+}
+
+void CodeEditor::displayFile() {
+    activeFiles[activeFiles.size() - 1]->fileInstance->open(QFile::ReadWrite);
+
+    if (!activeFiles[activeFiles.size() - 1]->fileInstance->isOpen()) {
+        qDebug() << "File did not open";
+    }
+
+    QTextStream textStream(activeFiles[activeFiles.size() - 1]->fileInstance);
+    QString text = textStream.readAll();
+    ui->editor->setPlainText(text);
+    createTab(activeFiles[activeFiles.size() - 1]->fileName, 1, activeFiles[activeFiles.size() - 1]->fileInstance->fileName());
+    checkEditor();
 
 }
 
@@ -218,11 +233,26 @@ void CodeEditor::on_actionPaste_triggered() {
     ui->editor->paste();
 }
 
-void CodeEditor::fileCloseSlot(const QString &filePath){
+void CodeEditor::fileCloseSlot(QString filePath) {
+    qDebug() << filePath;
     for (QList<activeFileInformation*>::ConstIterator i = activeFiles.constBegin() ; i < activeFiles.constEnd(); i++)
-        if ((*i)->fileInstance->fileName() == filePath){
+        if ((*i)->fileInstance->fileName() == filePath) {
+            (*i)->fileInstance->close();
+            qDebug() << "File closed";
             activeFiles.erase(i);
+            qDebug() << "File deleted from the list";
+            checkEditor();
             break;
         }
+}
+
+void CodeEditor::checkEditor() {
+    if (activeFiles.size() == 0) {
+        ui->editor->setPlaceholderText("");
+        ui->editor->hide();
+    }
+    else if (activeFiles.size() > 0) {
+        ui->editor->show();
+    }
 }
 

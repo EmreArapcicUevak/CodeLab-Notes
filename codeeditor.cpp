@@ -147,6 +147,8 @@ activeFileInformation::activeFileInformation(const QString &fileName, QFile *fil
 activeFileInformation::~activeFileInformation()
 {
     qDebug() << this->fileInstance->fileName() << "Freed";
+    if (this->fileInstance->isOpen())
+        this->fileInstance->close();
     delete this->fileInstance;
 }
 
@@ -182,10 +184,11 @@ void CodeEditor::openFile(const QString &filePath, const QString &fileName) {
 }
 
 void CodeEditor::displayFile() {
-    activeFiles[activeFiles.size() - 1]->fileInstance->open(QFile::ReadWrite);
 
-    if (!activeFiles[activeFiles.size() - 1]->fileInstance->isOpen()) {
+
+    if (!activeFiles[activeFiles.size() - 1]->fileInstance->open(QFile::ReadWrite)) {
         qDebug() << "File did not open";
+        return;
     }
 
     QTextStream textStream(activeFiles[activeFiles.size() - 1]->fileInstance);
@@ -193,7 +196,6 @@ void CodeEditor::displayFile() {
     ui->editor->setPlainText(text);
     createTab(activeFiles[activeFiles.size() - 1]->fileName, 1, activeFiles[activeFiles.size() - 1]->fileInstance->fileName());
     checkEditor();
-
 }
 
 void CodeEditor::aboutCodeLabNotes() {
@@ -237,10 +239,7 @@ void CodeEditor::fileCloseSlot(QString filePath) {
     qDebug() << filePath;
     for (QList<activeFileInformation*>::ConstIterator i = activeFiles.constBegin() ; i < activeFiles.constEnd(); i++)
         if ((*i)->fileInstance->fileName() == filePath) {
-            (*i)->fileInstance->close();
-            qDebug() << "File closed";
             activeFiles.erase(i);
-            qDebug() << "File deleted from the list";
             checkEditor();
             break;
         }

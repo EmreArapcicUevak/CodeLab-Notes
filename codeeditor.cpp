@@ -253,9 +253,9 @@ void CodeEditor::openFolder(){
     }
 }
 
-void CodeEditor::createNewFile()
-{
-
+void CodeEditor::createNewFile(){
+    QString newFilePath = QFileDialog::getSaveFileName(this,"Select how you want to save your file",this->workingDirectory);
+    qDebug() << "New file name is " << newFilePath;
 }
 
 void CodeEditor::createNewFolder()
@@ -288,17 +288,7 @@ void CodeEditor::saveFileAs()
 
 
 void CodeEditor::on_treeView_doubleClicked(const QModelIndex &index){
-    if (this->workingDirectory.isEmpty())
-        return;
-
-    QString path = QString();
-    QModelIndex cur = index;
-    while (cur.data().toString() != this->rootFileName){
-        path = QString("%1/%3").arg(cur.data().toString()).arg(path);
-        cur = cur.parent();
-    }
-    path = this->workingDirectory + '/' + path.sliced(0,path.size()-1);
-    openFile(path, index.data().toString());
+    openFile(dirModel->filePath(index), index.data().toString());
 }
 
 

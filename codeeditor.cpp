@@ -75,8 +75,7 @@ void CodeEditor::createTab(QString text, bool pressed = 0, QString _filePath = "
     connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
 }
 
-void CodeEditor::setWorkingDirectory(const QString &newWorkingDirectory)
-{
+void CodeEditor::setWorkingDirectory(const QString &newWorkingDirectory){
     workingDirectory = newWorkingDirectory;
     emit this->workingDirectoryChanged();
 }
@@ -87,6 +86,11 @@ void CodeEditor::setUpMenu() {
     connect(ui->actionOpen_Folder, &QAction::triggered, this, &CodeEditor::openFolder);
     connect(this, &CodeEditor::workingDirectoryChanged, this, &CodeEditor::updateTreeView);
     connect(ui->actionAbout_CodeLab_Notes, &QAction::triggered, this, &CodeEditor::aboutCodeLabNotes);
+    connect(ui->actionNew_File, &QAction::triggered, this, &CodeEditor::createNewFile);
+    connect(ui->actionNew_Folder, &QAction::triggered, this, &CodeEditor::createNewFolder);
+    connect(ui->actionSave, &QAction::triggered, this, &CodeEditor::saveFile);
+    connect(ui->actionSave_All, &QAction::triggered, this, &CodeEditor::saveAllFiles);
+    connect(ui->actionSave_as, &QAction::triggered, this, &CodeEditor::saveFileAs);
 
 
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
@@ -184,8 +188,6 @@ void CodeEditor::openFile(const QString &filePath, const QString &fileName) {
 }
 
 void CodeEditor::displayFile() {
-
-
     if (!activeFiles[activeFiles.size() - 1]->fileInstance->open(QFile::ReadWrite)) {
         qDebug() << "File did not open";
         return;
@@ -245,12 +247,36 @@ void CodeEditor::fileCloseSlot(QString filePath) {
         }
 }
 
+void CodeEditor::createNewFile()
+{
+
+}
+
+void CodeEditor::createNewFolder()
+{
+
+}
+
+void CodeEditor::saveFile()
+{
+
+}
+
+void CodeEditor::saveAllFiles()
+{
+
+}
+
+void CodeEditor::saveFileAs()
+{
+
+}
+
 void CodeEditor::checkEditor() {
     if (activeFiles.size() == 0) {
         ui->editor->setPlaceholderText("");
         ui->editor->hide();
-    }
-    else if (activeFiles.size() > 0) {
+    }else if (activeFiles.size() > 0) {
         ui->editor->show();
     }
 }

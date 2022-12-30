@@ -43,6 +43,11 @@ private slots:
     void on_actionPaste_triggered();
 
     void fileCloseSlot(QString);
+    void createNewFile();
+    void createNewFolder();
+    void saveFile();
+    void saveAllFiles();
+    void saveFileAs();
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;

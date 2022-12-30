@@ -256,6 +256,24 @@ void CodeEditor::openFolder(){
 void CodeEditor::createNewFile(){
     QString newFilePath = QFileDialog::getSaveFileName(this,"Select how you want to save your file",this->workingDirectory);
     qDebug() << "New file name is " << newFilePath;
+    if (newFilePath.isEmpty())
+        return;
+    else{
+        QFile file(newFilePath);
+        qDebug() << file.exists();
+
+        if (!file.exists())
+            if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+                file.close();
+            else
+                QMessageBox::warning(this,"Can not make wanted file","Something happened while trying to make the file.");
+        else if(file.open(QIODevice::WriteOnly | QIODevice::Text))
+            file.close();
+        else
+            QMessageBox::warning(this,"Can not replace wanted file","This file is currently being used by another application.");
+
+
+    }
 }
 
 void CodeEditor::createNewFolder()

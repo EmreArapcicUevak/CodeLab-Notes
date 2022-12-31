@@ -6,19 +6,11 @@
 
 #include "highlighter.h"
 #include "openedfiletab.h"
+#include "activefileinformation.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CodeEditor; }
 QT_END_NAMESPACE
-
-
-struct activeFileInformation {
-    QFile* fileInstance;
-    QString fileName, fileExtension;
-
-    activeFileInformation(const QString&, QFile*);
-    ~activeFileInformation();
-};
 
 class CodeEditor : public QMainWindow {
     Q_OBJECT

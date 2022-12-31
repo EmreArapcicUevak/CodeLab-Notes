@@ -111,26 +111,7 @@ void CodeEditor::setupEditor() {
 
 /* ACTIVE FILE INFORMATION STRUCT SET UP */
 
-activeFileInformation::activeFileInformation(const QString &fileName, QFile *fileInstance){
-    this->fileInstance = fileInstance;
 
-    int dotIndex = fileName.size();
-    while (dotIndex > 0 && fileName[--dotIndex] != '.');
-    this->fileName = fileName;
-
-    if (dotIndex != 0)
-        this->fileExtension = fileName.sliced(dotIndex+1);
-
-    qDebug() << fileInstance->fileName() << this->fileName << this->fileExtension;
-}
-
-activeFileInformation::~activeFileInformation()
-{
-    qDebug() << this->fileInstance->fileName() << "Freed";
-    if (this->fileInstance->isOpen())
-        this->fileInstance->close();
-    delete this->fileInstance;
-}
 
 /* Other slots */
 
@@ -191,7 +172,7 @@ void CodeEditor::createTab(QString text, bool pressed = 0, QString filePath = ""
 }*/
 
 void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool pressed) {
-    OpenedFileTab* tab = new OpenedFileTab(fileInfo.fileName, fileInfo.fileInstance->fileName(), fileInfo.fileExtension);
+    OpenedFileTab* tab = new OpenedFileTab(fileInfo);
     tab->changeColor();
     tab->code = code;
 
@@ -225,7 +206,6 @@ void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool 
 void CodeEditor::tabChangedProcess(OpenedFileTab* tab) {
     if (tab == currentTab)
         return;
-
     currentTab->code = ui->editor->toPlainText();
     qDebug() << "Tab changed";
     currentTab->changeColor();

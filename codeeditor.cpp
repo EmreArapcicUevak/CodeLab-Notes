@@ -24,7 +24,6 @@ CodeEditor::CodeEditor(QWidget *parent)
 
 
 
-
     highlighter = new Highlighter();
 
     QToolBar* toolBar = new QToolBar();
@@ -188,10 +187,8 @@ void CodeEditor::createTab(QString text, bool pressed = 0, QString filePath = ""
 }
 
 void CodeEditor::tabChangedProcess(OpenedFileTab* tab) {
-    if (tab == currentTab) {
-        qDebug() << "Opened tab pressed";
+    if (tab == currentTab)
         return;
-    }
 
     currentTab->code = ui->editor->toPlainText();
     qDebug() << "Tab changed";
@@ -212,20 +209,16 @@ void CodeEditor::tabClosedProcess(OpenedFileTab* tab) {
         }
     }
 
-    if (tab != currentTab) {
-        qDebug() << "Not opened Tab Closed";
+    if (tab != currentTab)
         return;
-    }
 
-    qDebug() << "Opened tab closed";
+
 
     if (activeTabs.count() == 0) {
         currentTab = nullptr;
-        qDebug() << "Error 420";
         return;
     }
 
-    qDebug() << "Error 69";
 
     currentTab = activeTabs[0];
     currentTab->changeColor();

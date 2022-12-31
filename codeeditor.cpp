@@ -25,6 +25,11 @@ CodeEditor::CodeEditor(QWidget *parent)
     currentTab = nullptr;
     highlighter = new Highlighter();
 
+    // Set up hash map for icons
+    icons.insert("cpp", ":/Resources/Resources/Logos/cpp_logo_icon.svg");
+    icons.insert("c",":/Resources/Resources/Logos/c_logo_icon.svg");
+    icons.insert("h", ":/Resources/Resources/Logos/header_logo_icon.svg");
+
     QToolBar* toolBar = new QToolBar();
     ui->toolbarHolder->addWidget(toolBar);
     toolBar->addAction(ui->actionRemove);

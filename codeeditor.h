@@ -68,6 +68,8 @@ private:
     Highlighter* highlighter;
     OpenedFileTab* currentTab;
 
+    QHash<QString, QString> icons;
+
     void setUpMenu();
     void setUpTreeView();
     void openFile(const QString&, const QString &);

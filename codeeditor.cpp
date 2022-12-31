@@ -191,7 +191,8 @@ void CodeEditor::createTab(QString text, bool pressed = 0, QString filePath = ""
 }*/
 
 void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool pressed) {
-    OpenedFileTab* tab = new OpenedFileTab(fileInfo.fileName, fileInfo.fileInstance->fileName(), fileInfo.fileExtension);
+    OpenedFileTab* tab = new OpenedFileTab(fileInfo.fileName, fileInfo.fileInstance->fileName(),
+                                           fileInfo.fileExtension);
     tab->changeColor();
     tab->code = code;
 

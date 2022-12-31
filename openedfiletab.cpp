@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
+#include <QApplication>
 
 OpenedFileTab::OpenedFileTab(QString fileName, QString _filePath, QString _fileExtension) {
 
@@ -13,10 +14,13 @@ OpenedFileTab::OpenedFileTab(QString fileName, QString _filePath, QString _fileE
     layout = new QHBoxLayout();
     iconHolder = new QLabel("");
     label = new QLabel(fileName);
+    QSpacerItem *spacer = new QSpacerItem(1,1, QSizePolicy::Expanding, QSizePolicy::Fixed);
     deleteBtn = new QPushButton(QIcon(":/Resources/Resources/Icons/remove_icon.svg"), "", this);
+
 
     layout->addWidget(iconHolder);
     layout->addWidget(label);
+    layout->addSpacerItem(spacer);
     layout->addWidget(deleteBtn);
 
     this->setLayout(layout);
@@ -33,16 +37,14 @@ OpenedFileTab::OpenedFileTab(QString fileName, QString _filePath, QString _fileE
     this->setStyleSheet("[clicked=false] {"
                         "background-color : #353638;"
                         "color : #c5c5c5;"
-                        "border-top-left-radius : 5px;"
-                        "border-top-right-radius : 5px;"
+                        "border-radius : 5px;"
                         "margin : 0;"
                         "padding : 0;"
                         "}"
                         "[clicked=true] {"
                         "background-color : #27282a;"
                         "color : white;"
-                        "border-top-left-radius : 5px;"
-                        "border-top-right-radius : 5px;"
+                        "border-radius : 5px;"
                         "margin : 0;"
                         "padding : 0;"
                         "}");
@@ -53,6 +55,13 @@ OpenedFileTab::OpenedFileTab(QString fileName, QString _filePath, QString _fileE
     deleteBtn->setProperty("clicked", false);
     iconHolder->setProperty("clicked", false);
     label->setProperty("clicked", false);
+
+    iconHolder->setAlignment(Qt::AlignLeft);
+    label->setAlignment(Qt::AlignLeft);
+
+
+    this->setMaximumSize(QSize(200, this->height()));
+    this->setMinimumSize(QSize(200, this->height()));
 }
 
 void OpenedFileTab::paintEvent(QPaintEvent* event) {
@@ -67,6 +76,14 @@ void OpenedFileTab::paintEvent(QPaintEvent* event) {
 void OpenedFileTab::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton)
         emit onPressed();
+
+    // Tab drag
+    if (event->buttons() & Qt::LeftButton)
+        dragStartPosition = event->pos();
+    oldX = this->geometry().x();
+    oldY = this->geometry().y();
+    mouseClickX = event->globalPosition().x();
+    mouseClickY = event->globalPosition().y();
 }
 
 void OpenedFileTab::tabPressed() {
@@ -105,3 +122,71 @@ void OpenedFileTab::changeColor() {
     label->style()->unpolish(label);
     label->style()->polish(label);
 }
+void OpenedFileTab::mouseMoveEvent(QMouseEvent* event) {
+    if (!(event->buttons() & Qt::LeftButton))
+        return;
+    if (!IsMinimumDistanceReached(event))
+    {
+        return;
+    }
+    int x = event->globalPosition().x() - mouseClickX + oldX;
+    int RightBorder = this->parentWidget()->geometry().width() - this->geometry().width();
+    if(x < 0) x = 0;
+    else if(x > RightBorder) x = RightBorder;
+    move(x, oldY);
+}
+
+bool OpenedFileTab::IsMinimumDistanceReached(QMouseEvent* event) {
+    return (event->pos() - dragStartPosition).manhattanLength() >= QApplication::startDragDistance();
+}
+
+
+// Direction -1 is Left && 1 is Right
+bool OpenedFileTab::moveInLayout(int direction) {
+
+    QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->layout());
+
+    const int index = myLayout->indexOf(this);
+    if (direction == -1 && index == 0) {
+        return false;
+    }
+    if (direction == 1 && index == myLayout->count()-1 )
+    {
+        return false;
+    }
+    const int newIndex = direction == -1 ? index - 1 : index + 1;
+    this->parentWidget()->layout()->removeWidget(this);
+    myLayout->insertWidget(newIndex, this);
+    return true;
+}
+
+void OpenedFileTab::mouseReleaseEvent(QMouseEvent*) {
+    int x = geometry().x();
+    int direct;
+    int offset;
+    if(oldX > x)
+    {
+        offset = oldX- x;
+        direct = -1;
+    }
+    else if(oldX < x)
+    {
+        offset = x - oldX;
+        direct = 1;
+    }
+    int count = offset / this->width();
+    float decimal = offset % this->width();
+    if (decimal >= 0.66) {
+        count++;
+    }
+    for(int i = 0; i < count; i++)
+    {
+        moveInLayout(direct);
+    }
+
+    update();
+    QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->layout());
+    myLayout->update();
+    this->saveGeometry();
+}
+

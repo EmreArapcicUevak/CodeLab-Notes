@@ -13,6 +13,13 @@
 class OpenedFileTab : public QWidget {
 
     Q_OBJECT
+
+private:
+    QPoint dragStartPosition;
+    int oldX, oldY;
+    int mouseClickX, mouseClickY;
+    QList<OpenedFileTab*> activeTabs;
+
 public:
     void changeColor();
 
@@ -28,6 +35,11 @@ public:
     void paintEvent(QPaintEvent* event) override;
 protected:
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent*) override;
+    bool moveInLayout(int direction);
+    bool IsMinimumDistanceReached(QMouseEvent *event);
+
 
 signals:
     void onPressed();
@@ -38,7 +50,6 @@ public slots:
 
     void tabPressed();
     void deletePressed();
-
 };
 
 #endif // OPENEDFILETAB_H

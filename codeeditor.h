@@ -5,6 +5,7 @@
 #include <QMainWindow>
 
 #include "highlighter.h"
+#include "openedfiletab.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CodeEditor; }
@@ -26,16 +27,19 @@ public:
     CodeEditor(QWidget *parent = nullptr);
     ~CodeEditor();
 
-    void createTab(QString text, bool pressed, QString _filePath);
+    void createTab(QString text, bool pressed, QString filePath, QString fileExtension, QString code);
     void setWorkingDirectory(const QString &newWorkingDirectory);
     void aboutCodeLabNotes();
-    void setHighlighting(bool set);
+    void setHighlighting();
+    void setupEditor();
 signals:
     void workingDirectoryChanged();
 private slots:
     /*Trew view based slots */
     void updateTreeView();
     void on_treeView_doubleClicked(const QModelIndex &index);
+    void tabChangedProcess(OpenedFileTab*);
+    void tabClosedProcess(OpenedFileTab*);
 
     /* Text editor based slots */
     void on_actionUndo_triggered();
@@ -53,10 +57,12 @@ private slots:
     void saveAllFiles();
     void saveFileAs();
 private:
+    OpenedFileTab* currentTab;
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;
     QString workingDirectory, rootFileName;
     QList<activeFileInformation*> activeFiles;
+    QList<OpenedFileTab*> activeTabs;
 
     Highlighter* highlighter;
 

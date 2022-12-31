@@ -4,13 +4,15 @@
 #include <QPainter>
 #include <QStyleOption>
 
-OpenedFileTab::OpenedFileTab(QString text, QString _filePath, bool _pressed) {
+OpenedFileTab::OpenedFileTab(QString fileName, QString _filePath, QString _fileExtension) {
 
-    pressed = _pressed;
+    pressed = false;
+    code = "";
     filePath = _filePath;
+    fileExtension = _fileExtension;
     layout = new QHBoxLayout();
     iconHolder = new QLabel("");
-    label = new QLabel(text);
+    label = new QLabel(fileName);
     deleteBtn = new QPushButton(QIcon(":/Resources/Resources/Icons/remove_icon.svg"), "", this);
 
     layout->addWidget(iconHolder);
@@ -68,10 +70,11 @@ void OpenedFileTab::mousePressEvent(QMouseEvent *event) {
 }
 
 void OpenedFileTab::tabPressed() {
-    changeColor();
+    emit thisTabPressed(this);
 }
 
 void OpenedFileTab::deletePressed() {
+    emit thisTabClosed(this);
     emit tabClosed(filePath);
     delete this;
 }

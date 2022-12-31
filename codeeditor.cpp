@@ -20,9 +20,12 @@ CodeEditor::CodeEditor(QWidget *parent)
     ui->setupUi(this);
 
 
+    currentTab = nullptr;
+
+
+
 
     highlighter = new Highlighter();
-    setHighlighting(false);
 
     QToolBar* toolBar = new QToolBar();
     ui->toolbarHolder->addWidget(toolBar);
@@ -98,6 +101,10 @@ void CodeEditor::checkEditor() {
     }
 }
 
+void CodeEditor::setupEditor() {
+    ui->editor->setPlainText(currentTab->code);
+}
+
 
 /* ACTIVE FILE INFORMATION STRUCT SET UP */
 
@@ -145,18 +152,20 @@ void CodeEditor::aboutCodeLabNotes() {
  *
 */
 
-void CodeEditor::createTab(QString text, bool pressed = 0, QString _filePath = "") {
-    OpenedFileTab* tab = new OpenedFileTab(text, _filePath, true);
+void CodeEditor::createTab(QString text, bool pressed = 0, QString filePath = "", QString fileExtension = "", QString code = "") {
+    OpenedFileTab* tab = new OpenedFileTab(text, filePath, fileExtension);
     tab->changeColor();
+    tab->code = code;
 
+    qDebug() << "Current Extension is : " << tab->fileExtension;
     QString iconLocation = ":/Resources/Resources/Logos/text_logo_icon.svg";
-    if (text.contains(".cpp")) {
+    if (tab->fileExtension == "cpp") {
         iconLocation = ":/Resources/Resources/Logos/cpp_logo_icon.svg";
     }
-    else if (text.contains(".c")) {
+    else if (tab->fileExtension == "c") {
         iconLocation = ":/Resources/Resources/Logos/c_logo_icon.svg";
     }
-    else if (text.contains(".h")) {
+    else if (tab->fileExtension == "h") {
         iconLocation = ":/Resources/Resources/Logos/header_logo_icon.svg";
     }
 
@@ -166,6 +175,64 @@ void CodeEditor::createTab(QString text, bool pressed = 0, QString _filePath = "
     ui->tabContainer->addWidget(tab, 0, Qt::AlignLeft);
 
     connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
+    connect(tab, &OpenedFileTab::thisTabPressed, this, &CodeEditor::tabChangedProcess);
+    connect(tab, &OpenedFileTab::thisTabClosed, this, &CodeEditor::tabClosedProcess);
+    if (currentTab != nullptr)
+        currentTab->changeColor();
+
+    currentTab = tab;
+    activeTabs.append(tab);
+
+    setupEditor();
+    setHighlighting();
+}
+
+void CodeEditor::tabChangedProcess(OpenedFileTab* tab) {
+    if (tab == currentTab) {
+        qDebug() << "Opened tab pressed";
+        return;
+    }
+
+    currentTab->code = ui->editor->toPlainText();
+    qDebug() << "Tab changed";
+    currentTab->changeColor();
+    currentTab = tab;
+    currentTab->changeColor();
+
+    setupEditor();
+    setHighlighting();
+}
+
+void CodeEditor::tabClosedProcess(OpenedFileTab* tab) {
+
+    for (int i = 0; i < activeTabs.count(); i++) {
+        if (activeTabs[i] == tab) {
+            activeTabs.removeAt(i);
+            break;
+        }
+    }
+
+    if (tab != currentTab) {
+        qDebug() << "Not opened Tab Closed";
+        return;
+    }
+
+    qDebug() << "Opened tab closed";
+
+    if (activeTabs.count() == 0) {
+        currentTab = nullptr;
+        qDebug() << "Error 420";
+        return;
+    }
+
+    qDebug() << "Error 69";
+
+    currentTab = activeTabs[0];
+    currentTab->changeColor();
+
+    setupEditor();
+    setHighlighting();
+
 }
 
 void CodeEditor::displayFile() {
@@ -177,7 +244,9 @@ void CodeEditor::displayFile() {
     QTextStream textStream(activeFiles[activeFiles.size() - 1]->fileInstance);
     QString text = textStream.readAll();
     ui->editor->setPlainText(text);
-    createTab(activeFiles[activeFiles.size() - 1]->fileName, 1, activeFiles[activeFiles.size() - 1]->fileInstance->fileName());
+    createTab(activeFiles[activeFiles.size() - 1]->fileName, 1,
+            activeFiles[activeFiles.size() - 1]->fileInstance->fileName(),
+            activeFiles[activeFiles.size() - 1]->fileExtension, text);
     checkEditor();
 }
 
@@ -226,11 +295,15 @@ void CodeEditor::fileCloseSlot(QString filePath) {
         }
 }
 
-void CodeEditor::setHighlighting(bool set) {
-    if (set == true)
+void CodeEditor::setHighlighting() {
+
+    if (currentTab->fileExtension == "cpp" || currentTab->fileExtension == "c" || currentTab->fileExtension == "h") {
         highlighter->setDocument(ui->editor->document());
-    else
+    }
+    else {
         highlighter->setDocument(nullptr);
+    }
+
 }
 
 void CodeEditor::openFile(const QString &filePath, const QString &fileName) {

@@ -18,11 +18,13 @@ public:
 
     bool pressed;
     QString filePath;
+    QString fileExtension;
+    QString code;
     QLabel* iconHolder;
     QHBoxLayout* layout;
     QLabel* label;
     QPushButton* deleteBtn;
-    OpenedFileTab(QString text, QString _filePath, bool _pressed);
+    OpenedFileTab(QString text, QString _filePath, QString _fileExtension);
     void paintEvent(QPaintEvent* event) override;
 protected:
     void mousePressEvent(QMouseEvent *event) override;
@@ -30,6 +32,8 @@ protected:
 signals:
     void onPressed();
     void tabClosed(QString);
+    void thisTabPressed(OpenedFileTab*);
+    void thisTabClosed(OpenedFileTab*);
 public slots:
 
     void tabPressed();

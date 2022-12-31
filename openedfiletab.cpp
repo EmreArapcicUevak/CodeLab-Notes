@@ -3,16 +3,17 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QStyleOption>
+OpenedFileTab::OpenedFileTab(activeFileInformation &activeFileInfo) {
 
-OpenedFileTab::OpenedFileTab(QString fileName, QString _filePath, QString _fileExtension) {
+    this->fileInfo = activeFileInfo;
 
     pressed = false;
     code = "";
-    filePath = _filePath;
-    fileExtension = _fileExtension;
+    filePath = activeFileInfo.fileInstance->fileName();
+    fileExtension = activeFileInfo.fileExtension;
     layout = new QHBoxLayout();
     iconHolder = new QLabel("");
-    label = new QLabel(fileName);
+    label = new QLabel(activeFileInfo.fileName);
     deleteBtn = new QPushButton(QIcon(":/Resources/Resources/Icons/remove_icon.svg"), "", this);
 
     layout->addWidget(iconHolder);

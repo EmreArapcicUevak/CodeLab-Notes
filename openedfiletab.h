@@ -9,6 +9,7 @@
 #include <QIcon>
 #include <QAbstractButton>
 #include <QImage>
+#include "activefileinformation.h"
 
 class OpenedFileTab : public QWidget {
 
@@ -24,7 +25,8 @@ public:
     QHBoxLayout* layout;
     QLabel* label;
     QPushButton* deleteBtn;
-    OpenedFileTab(QString text, QString _filePath, QString _fileExtension);
+    activeFileInformation fileInfo;
+    OpenedFileTab(activeFileInformation &);
     void paintEvent(QPaintEvent* event) override;
 protected:
     void mousePressEvent(QMouseEvent *event) override;

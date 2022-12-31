@@ -20,16 +20,15 @@ set(PROJECT_SOURCES
         editor.cpp
         openedfiletab.cpp
         highlighter.cpp
-
         codeeditor.h
         linenumberarea.h
         editor.h
         openedfiletab.h
         highlighter.h
-
         codeeditor.ui
-
         Resources.qrc
+        activefileinformation.h
+        activefileinformation.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

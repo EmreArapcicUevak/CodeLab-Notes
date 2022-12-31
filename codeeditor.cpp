@@ -11,6 +11,7 @@
 #include <QMessageBox>
 
 #include "openedfiletab.h"
+#include <QHash>
 
 
 
@@ -234,6 +235,7 @@ void CodeEditor::displayFile() {
 
     QTextStream textStream(activeFiles[activeFiles.size() - 1]->fileInstance);
     QString text = textStream.readAll();
+
     ui->editor->setPlainText(text);
     createTab(activeFiles[activeFiles.size() - 1]->fileName, 1,
             activeFiles[activeFiles.size() - 1]->fileInstance->fileName(),
@@ -366,24 +368,30 @@ void CodeEditor::createNewFolder()
     }
 }
 
-void CodeEditor::saveFile()
-{
+void CodeEditor::saveFile(activeFileInformation& filePath, const QString& fileContent){
+    filePath.fileInstance->close();
+
+    if (filePath.fileInstance->open(QIODevice::WriteOnly | QIODevice::Text)){
+        QTextStream out(filePath.fileInstance);
+        out << fileContent;
+
+        filePath.fileInstance->close();
+        filePath.fileInstance->open(QFile::ReadWrite);
+    }else
+        QMessageBox::warning(this,"File failed to save", filePath.fileInstance->fileName() + " failed to save");
+}
+
+void CodeEditor::saveAllFiles(){
 
 }
 
-void CodeEditor::saveAllFiles()
-{
-
-}
-
-void CodeEditor::saveFileAs()
-{
+void CodeEditor::saveFileAs(){
 
 }
 
 void CodeEditor::autoSaveToggle(const bool state){
     if (state)
-        this->statusBar()->showMessage("Auto saved turned on!");
+        this->statusBar()->showMessage("Auto saved turned on!", 0);
     else
         this->statusBar()->clearMessage();
 }

@@ -53,7 +53,7 @@ private slots:
     void fileCloseSlot(QString);
     void createNewFile();
     void createNewFolder();
-    void saveFile();
+    void saveFile(activeFileInformation& filePath, const QString& fileContent);
     void saveAllFiles();
     void saveFileAs();
     void autoSaveToggle(const bool);

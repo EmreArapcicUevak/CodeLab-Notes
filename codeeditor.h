@@ -57,14 +57,17 @@ private slots:
     void saveAllFiles();
     void saveFileAs();
 private:
-    OpenedFileTab* currentTab;
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;
     QString workingDirectory, rootFileName;
+
     QList<activeFileInformation*> activeFiles;
     QList<OpenedFileTab*> activeTabs;
 
     Highlighter* highlighter;
+    OpenedFileTab* currentTab;
+
+    bool autoSave;
 
     void setUpMenu();
     void setUpTreeView();

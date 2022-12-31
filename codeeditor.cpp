@@ -20,10 +20,9 @@ CodeEditor::CodeEditor(QWidget *parent)
     ui->setupUi(this);
 
 
+    // Set default values of variables
     currentTab = nullptr;
-
-
-
+    autoSave = false;
     highlighter = new Highlighter();
 
     QToolBar* toolBar = new QToolBar();

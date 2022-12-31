@@ -22,7 +22,6 @@ CodeEditor::CodeEditor(QWidget *parent)
 
     // Set default values of variables
     currentTab = nullptr;
-    autoSave = false;
     highlighter = new Highlighter();
 
     QToolBar* toolBar = new QToolBar();
@@ -66,7 +65,7 @@ void CodeEditor::setUpMenu() {
     connect(ui->actionSave, &QAction::triggered, this, &CodeEditor::saveFile);
     connect(ui->actionSave_All, &QAction::triggered, this, &CodeEditor::saveAllFiles);
     connect(ui->actionSave_as, &QAction::triggered, this, &CodeEditor::saveFileAs);
-
+    connect(ui->actionAuto_Save, &QAction::toggled, this, &CodeEditor::autoSaveToggle);
 
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
         qDebug() << "Working directory changed!";
@@ -382,6 +381,12 @@ void CodeEditor::saveFileAs()
 
 }
 
+void CodeEditor::autoSaveToggle(const bool state){
+    if (state)
+        this->statusBar()->showMessage("Auto saved turned on!");
+    else
+        this->statusBar()->clearMessage();
+}
 
 
 /*

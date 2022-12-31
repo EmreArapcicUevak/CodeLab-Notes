@@ -56,6 +56,7 @@ private slots:
     void saveFile();
     void saveAllFiles();
     void saveFileAs();
+    void autoSaveToggle(const bool);
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;
@@ -66,8 +67,6 @@ private:
 
     Highlighter* highlighter;
     OpenedFileTab* currentTab;
-
-    bool autoSave;
 
     void setUpMenu();
     void setUpTreeView();

@@ -195,12 +195,6 @@ void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool 
     connect(tab, &OpenedFileTab::thisTabPressed, this, &CodeEditor::tabChangedProcess);
     connect(tab, &OpenedFileTab::thisTabClosed, this, &CodeEditor::tabClosedProcess);
 
-    connect(tab, &OpenedFileTab::thisTabPressed, [&]()->void{
-        qDebug() << this->ui->actionAuto_Save->isChecked();
-        //if (this->ui->actionAuto_Save->isChecked())
-        //    qDebug() << "Save the file " + fileInfo.fileName;
-    });
-
     if (currentTab != nullptr)
         currentTab->changeColor();
 

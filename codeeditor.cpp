@@ -24,11 +24,17 @@ CodeEditor::CodeEditor(QWidget *parent)
     // Set default values of variables
     currentTab = nullptr;
     highlighter = new Highlighter();
+    this->blockChange = this->contentChanged = false;
 
     // Set up hash map for icons
     icons.insert("cpp", ":/Resources/Resources/Logos/cpp_logo_icon.svg");
     icons.insert("c",":/Resources/Resources/Logos/c_logo_icon.svg");
     icons.insert("h", ":/Resources/Resources/Logos/header_logo_icon.svg");
+
+    connect(ui->editor,&QPlainTextEdit::textChanged, [this]()->void{
+        if (!this->blockChange)
+            this->contentChanged = true;
+    });
 
     QToolBar* toolBar = new QToolBar();
     ui->toolbarHolder->addWidget(toolBar);
@@ -105,7 +111,9 @@ void CodeEditor::checkEditor() {
 }
 
 void CodeEditor::setupEditor() {
+    this->blockChange = true;
     ui->editor->setPlainText(currentTab->code);
+    this->blockChange = false;
 }
 
 
@@ -189,8 +197,8 @@ void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool 
 
     connect(tab, &OpenedFileTab::thisTabPressed, [&]()->void{
         qDebug() << this->ui->actionAuto_Save->isChecked();
-        if (this->ui->actionAuto_Save->isChecked())
-            qDebug() << "Save the file " + fileInfo.fileName;
+        //if (this->ui->actionAuto_Save->isChecked())
+        //    qDebug() << "Save the file " + fileInfo.fileName;
     });
 
     if (currentTab != nullptr)
@@ -206,12 +214,20 @@ void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool 
 void CodeEditor::tabChangedProcess(OpenedFileTab* tab) {
     if (tab == currentTab)
         return;
-    currentTab->code = ui->editor->toPlainText();
-    qDebug() << "Tab changed";
+
+    QString code = ui->editor->toPlainText();
+
+    if (ui->actionAuto_Save->isChecked() && this->contentChanged){
+        this->saveFile(currentTab->fileInfo, code);
+        qDebug() << "File saved" << currentTab->fileInfo.fileName;
+    }
+
+    currentTab->code = code;
     currentTab->changeColor();
     currentTab = tab;
     currentTab->changeColor();
 
+    this->contentChanged = false;
     setupEditor();
     setHighlighting();
 }
@@ -253,7 +269,10 @@ void CodeEditor::displayFile() {
     QTextStream textStream(activeFiles[activeFiles.size() - 1]->fileInstance);
     QString text = textStream.readAll();
 
+    this->blockChange = true;
     ui->editor->setPlainText(text);
+    this->blockChange = false;
+
     createTab(*activeFiles[activeFiles.size() - 1], text);
     checkEditor();
 }

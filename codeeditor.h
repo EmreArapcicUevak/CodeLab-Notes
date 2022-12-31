@@ -61,6 +61,9 @@ private:
 
     QHash<QString, QString> icons;
 
+    bool blockChange, contentChanged;
+
+
     void setUpMenu();
     void setUpTreeView();
     void openFile(const QString&, const QString &);

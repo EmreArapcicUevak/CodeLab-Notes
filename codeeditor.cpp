@@ -68,7 +68,7 @@ void CodeEditor::setUpMenu() {
     connect(ui->actionAbout_CodeLab_Notes, &QAction::triggered, this, &CodeEditor::aboutCodeLabNotes);
     connect(ui->actionNew_File, &QAction::triggered, this, &CodeEditor::createNewFile);
     connect(ui->actionNew_Folder, &QAction::triggered, this, &CodeEditor::createNewFolder);
-    connect(ui->actionSave, &QAction::triggered, this, &CodeEditor::saveFile);
+    //connect(ui->actionSave, &QAction::triggered, this, &CodeEditor::saveFile);
     connect(ui->actionSave_All, &QAction::triggered, this, &CodeEditor::saveAllFiles);
     connect(ui->actionSave_as, &QAction::triggered, this, &CodeEditor::saveFileAs);
     connect(ui->actionAuto_Save, &QAction::toggled, this, &CodeEditor::autoSaveToggle);
@@ -154,7 +154,7 @@ void CodeEditor::aboutCodeLabNotes() {
  *
  *
 */
-
+/*
 void CodeEditor::createTab(QString text, bool pressed = 0, QString filePath = "", QString fileExtension = "", QString code = "") {
     OpenedFileTab* tab = new OpenedFileTab(text, filePath, fileExtension);
     tab->changeColor();
@@ -180,6 +180,38 @@ void CodeEditor::createTab(QString text, bool pressed = 0, QString filePath = ""
     connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
     connect(tab, &OpenedFileTab::thisTabPressed, this, &CodeEditor::tabChangedProcess);
     connect(tab, &OpenedFileTab::thisTabClosed, this, &CodeEditor::tabClosedProcess);
+    if (currentTab != nullptr)
+        currentTab->changeColor();
+
+    currentTab = tab;
+    activeTabs.append(tab);
+
+    setupEditor();
+    setHighlighting();
+}*/
+
+void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool pressed) {
+    OpenedFileTab* tab = new OpenedFileTab(fileInfo.fileName, fileInfo.fileInstance->fileName(), fileInfo.fileExtension);
+    tab->changeColor();
+    tab->code = code;
+
+    qDebug() << "Current Extension is : " << tab->fileExtension;
+    QString iconLocation = icons.contains(fileInfo.fileExtension) ? icons.value(fileInfo.fileExtension) : ":/Resources/Resources/Logos/text_logo_icon.svg";
+    QPixmap icon(iconLocation);
+    tab->iconHolder->setPixmap(icon.scaled(15, 15, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+
+    ui->tabContainer->addWidget(tab, 0, Qt::AlignLeft);
+
+    connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
+    connect(tab, &OpenedFileTab::thisTabPressed, this, &CodeEditor::tabChangedProcess);
+    connect(tab, &OpenedFileTab::thisTabClosed, this, &CodeEditor::tabClosedProcess);
+
+    connect(tab, &OpenedFileTab::thisTabPressed, [&]()->void{
+        qDebug() << this->ui->actionAuto_Save->isChecked();
+        if (this->ui->actionAuto_Save->isChecked())
+            qDebug() << "Save the file " + fileInfo.fileName;
+    });
+
     if (currentTab != nullptr)
         currentTab->changeColor();
 
@@ -242,9 +274,7 @@ void CodeEditor::displayFile() {
     QString text = textStream.readAll();
 
     ui->editor->setPlainText(text);
-    createTab(activeFiles[activeFiles.size() - 1]->fileName, 1,
-            activeFiles[activeFiles.size() - 1]->fileInstance->fileName(),
-            activeFiles[activeFiles.size() - 1]->fileExtension, text);
+    createTab(*activeFiles[activeFiles.size() - 1], text);
     checkEditor();
 }
 
@@ -396,7 +426,7 @@ void CodeEditor::saveFileAs(){
 
 void CodeEditor::autoSaveToggle(const bool state){
     if (state)
-        this->statusBar()->showMessage("Auto saved turned on!", 0);
+        this->statusBar()->showMessage("Auto saved turned on!");
     else
         this->statusBar()->clearMessage();
 }

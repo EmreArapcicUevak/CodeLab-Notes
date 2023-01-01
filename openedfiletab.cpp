@@ -12,8 +12,8 @@ OpenedFileTab::OpenedFileTab(activeFileInformation &activeFileInfo) {
     filePath = activeFileInfo.fileInstance->fileName();
     fileExtension = activeFileInfo.fileExtension;
     layout = new QHBoxLayout();
-    iconHolder = new QLabel("");
-    label = new QLabel(activeFileInfo.fileName);
+    iconHolder = new QLabel("", this);
+    label = new QLabel(activeFileInfo.fileName, this);
     deleteBtn = new QPushButton(QIcon(":/Resources/Resources/Icons/remove_icon.svg"), "", this);
 
     layout->addWidget(iconHolder);
@@ -63,6 +63,14 @@ void OpenedFileTab::paintEvent(QPaintEvent* event) {
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 
     QWidget::paintEvent(event);
+}
+
+void OpenedFileTab::changeFile(activeFileInformation &activeFileInfo)
+{
+    this->label->setText(activeFileInfo.fileName);
+    this->fileInfo = activeFileInfo;
+    this->filePath = activeFileInfo.fileInstance->fileName();
+    this->fileExtension = activeFileInfo.fileExtension;
 }
 
 void OpenedFileTab::mousePressEvent(QMouseEvent *event) {

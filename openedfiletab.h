@@ -28,6 +28,8 @@ public:
     activeFileInformation fileInfo;
     OpenedFileTab(activeFileInformation &);
     void paintEvent(QPaintEvent* event) override;
+
+    void changeFile(activeFileInformation &);
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 

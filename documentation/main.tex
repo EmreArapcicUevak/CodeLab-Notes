@@ -1,0 +1,84 @@
+\documentclass[a4paper, 11pt]{article}
+
+\usepackage[margin = 1in]{geometry} % for spacing around
+\usepackage{graphicx} % for including images in your pdfs
+\usepackage{xcolor} % for including colors in your pdf
+\usepackage{soul} % for text decoration
+\usepackage[utf8]{inputenc} % for encoded text
+\usepackage[T1]{fontenc}
+\usepackage{setspace} % for setting different line spacings between paragrafs.
+\usepackage{enumerate} % for letting us get more detailed enumerate lists
+\usepackage{multirow} % to let us combine more rows together
+\usepackage{colortbl} % for decorating tables
+\usepackage{amsmath} % used for representing more complicated math displays
+\usepackage{supertabular}
+\usepackage{longtable} % both of these packages are used to making really big tables
+\usepackage{wrapfig} % allows us to wrap text around figures
+\usepackage{fancyhdr} % for making fancy headers
+%\usepackage{bibtex} % for making better bibliographies
+\usepackage[pdftex]{hyperref} % for letting us make links
+\usepackage{lscape} % Allows us to flip from portrait to landspace
+\usepackage{tikz} % for high detailed drawing
+\usepackage{multicol} % To put things side by side
+\usepackage{rotating} % For rotating objects
+% \usepackage{draftwatermark} % For adding watermarks
+\usepackage{MnSymbol} % for using multiple symbols
+\usepackage{mathtools} % Used for more math symbols
+\usepackage{xfrac} % For more complciated fractions and to add derivitives
+\usepackage{hyperref} % for hyper links
+\usepackage{enumitem} % for better enum lists
+\usepackage{tcolorbox} % for adding colored text boxes
+\usepackage{bm} % Adding bold text to math inputs
+
+% Setting up the default image path
+\graphicspath{{./Images/}}
+
+% Implementing authro details
+\title{CS103 Project Report \\ CodeLab Notes \\ \small{code-editor}}
+\author{Emre Arapcic-Uvak & Vedad Siljic}
+\date{}
+
+% Setting up the fancy page style
+\fancypagestyle{customStyle}{
+	\lhead{} \chead{} \rhead{}
+	\lfoot{} \cfoot{\thepage} \rfoot{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{1pt}
+}
+\pagestyle{customStyle}
+
+% Setting up hyperref options
+\hypersetup {
+	colorlinks = false,
+	citecolor = black,
+	filecolor = blue,
+	linkcolor = blue,
+	urlcolor = blue,
+	pdftex
+}
+
+% Custom commands
+\newcommand{\important}[1]{\textcolor{red}{\textbf{\textsc{#1}}}}
+\newcommand{\miniHeader}[1]{\begin{large}\textbf{\textsc{#1}}\end{large}}
+\newcommand{\volumeUnit}[0]{\frac{g}{cm^{3}}}
+
+\begin{document}
+	\begin{figure}
+		\centering
+		\includegraphics[scale = 0.5]{IUS_Logo}
+		\\ \vspace{5mm}
+		\noindent \large{\textsc{International University of Sarajevo}}
+	\end{figure}
+	\maketitle
+	\vspace{5mm}
+
+	\begin{abstract}
+		\noindent This is a project document for CS103. This report will go over basic information of the program talking about its functionalities and abilities as a code editor, furthermore it will go over who went over what, what were the challenges that were face during the production of this program, and what were we able to learn from doing this project.
+	\end{abstract}
+	\pagebreak
+	
+	\tableofcontents
+	\pagebreak
+	
+	
+\end{document}

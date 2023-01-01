@@ -37,7 +37,7 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent*) override;
-    bool moveInLayout(int direction);
+    void moveInLayout(int direction);
     bool IsMinimumDistanceReached(QMouseEvent *event);
 
 

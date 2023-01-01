@@ -123,16 +123,12 @@ void OpenedFileTab::changeColor() {
     label->style()->polish(label);
 }
 void OpenedFileTab::mouseMoveEvent(QMouseEvent* event) {
-    if (!(event->buttons() & Qt::LeftButton))
+    if (!(event->buttons() & Qt::LeftButton) || !IsMinimumDistanceReached(event))
         return;
-    if (!IsMinimumDistanceReached(event))
-    {
-        return;
-    }
+
     int x = event->globalPosition().x() - mouseClickX + oldX;
     int RightBorder = this->parentWidget()->geometry().width() - this->geometry().width();
-    if(x < 0) x = 0;
-    else if(x > RightBorder) x = RightBorder;
+    x = x < 0 ? 0 : x > RightBorder ? RightBorder : x;
     move(x, oldY);
 }
 
@@ -142,47 +138,38 @@ bool OpenedFileTab::IsMinimumDistanceReached(QMouseEvent* event) {
 
 
 // Direction -1 is Left && 1 is Right
-bool OpenedFileTab::moveInLayout(int direction) {
+void OpenedFileTab::moveInLayout(int direction) {
 
-    QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->layout());
-
+    qDebug() << "parent widget: " << this->parentWidget();
+    qDebug() << "parent widget layout: " << this->parentWidget()->findChild<QHBoxLayout*>("tabContainer");
+    QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->findChild<QHBoxLayout*>("tabContainer"));
     const int index = myLayout->indexOf(this);
-    if (direction == -1 && index == 0) {
-        return false;
-    }
-    if (direction == 1 && index == myLayout->count()-1 )
-    {
-        return false;
-    }
-    const int newIndex = direction == -1 ? index - 1 : index + 1;
+
+    int newIndex = index + direction;
+    newIndex = newIndex < 0 ? 0 : newIndex >= myLayout->count() ? myLayout->count() - 1 : newIndex;
+
+    qDebug() << "Index: " + QString::number(index) << "new Index: " + QString::number(newIndex) << "Direction: " + QString::number(direction);
+    if (index == -1 || index == newIndex)
+        return;
     this->parentWidget()->layout()->removeWidget(this);
     myLayout->insertWidget(newIndex, this);
-    return true;
 }
 
 void OpenedFileTab::mouseReleaseEvent(QMouseEvent*) {
+    qDebug() << "Released";
     int x = geometry().x();
-    int direct;
-    int offset;
-    if(oldX > x)
-    {
-        offset = oldX- x;
+    int direct = oldX > x ? -1 : 1;
+    int offset = (x - oldX) * direct;
+    /*if(oldX > x){
+        offset = oldX - x;
         direct = -1;
-    }
-    else if(oldX < x)
-    {
+    }else if(oldX < x){
         offset = x - oldX;
         direct = 1;
-    }
-    int count = offset / this->width();
-    float decimal = offset % this->width();
-    if (decimal >= 0.66) {
-        count++;
-    }
-    for(int i = 0; i < count; i++)
-    {
-        moveInLayout(direct);
-    }
+    }*/
+    int count = float(offset) / this->width() + .34;
+    moveInLayout(direct * count);
+
 
     update();
     QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->layout());

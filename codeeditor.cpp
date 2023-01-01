@@ -82,6 +82,11 @@ void CodeEditor::setUpMenu() {
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
         qDebug() << "Working directory changed!";
     });
+
+    connect(ui->actionSave, &QAction::triggered, [this]()->void{
+        if (this->currentTab != nullptr)
+            this->saveFile(this->currentTab->fileInfo,ui->editor->toPlainText());
+    });
 }
 
 
@@ -410,11 +415,32 @@ void CodeEditor::saveFile(activeFileInformation& filePath, const QString& fileCo
 }
 
 void CodeEditor::saveAllFiles(){
-
+    for (QList<OpenedFileTab*>::iterator i = activeTabs.begin() ; i < activeTabs.end(); i++)
+        if (*i != this->currentTab)
+            this->saveFile((*i)->fileInfo,(*i)->code);
+        else
+            this->saveFile((*i)->fileInfo,ui->editor->toPlainText());
 }
 
 void CodeEditor::saveFileAs(){
+    if (this->currentTab == nullptr)
+        return;
+    else{
+        QString fileName,newFilePath = QFileDialog::getSaveFileName(this,"Select how you want to save your file",this->workingDirectory);
+        if (newFilePath.isEmpty())
+            return;
 
+        QFile tempFile(newFilePath);
+        unsigned int index = newFilePath.size();
+        for (QString::iterator i = newFilePath.end(); i > newFilePath.begin(); i--,index--)
+            if (*i == '/'){
+                fileName = newFilePath.sliced(index+1);
+                break;
+            }
+
+        activeFileInformation* fileInfo = new activeFileInformation(fileName,&tempFile);
+        this->saveFile(*fileInfo, ui->editor->toPlainText());
+    }
 }
 
 void CodeEditor::autoSaveToggle(const bool state){

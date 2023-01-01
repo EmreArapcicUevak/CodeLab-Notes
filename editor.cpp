@@ -57,7 +57,7 @@ void Editor::resizeEvent(QResizeEvent *e) {
 void Editor::lineNumberAreaPaintEvent(QPaintEvent *event) {
 
     QPainter painter(lineNumberArea);
-    painter.fillRect(event->rect(), QColor("#27282a"));
+    painter.fillRect(event->rect(), QColor(39,40,42));
 
     QTextBlock block = firstVisibleBlock();
     int blockNumber = block.blockNumber();
@@ -67,7 +67,7 @@ void Editor::lineNumberAreaPaintEvent(QPaintEvent *event) {
     while (block.isValid() && top <= event->rect().bottom()) {
         if (block.isVisible() && bottom >= event->rect().top()) {
             QString number = QString::number(blockNumber + 1);
-            painter.setPen(QColor("#c5c5c5"));
+            painter.setPen(QColor(197,197,197));
             painter.setFont(QFont("roboto", fontSize));
             painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
                              Qt::AlignCenter, number);
@@ -86,7 +86,7 @@ void Editor::highlightCurrentLine() {
     if (!isReadOnly()) {
         QTextEdit::ExtraSelection selection;
 
-        QColor lineColor = QColor("#27282a").lighter(130);
+        QColor lineColor = QColor(39,40,42).lighter(130);
 
         selection.format.setBackground(lineColor);
         selection.format.setProperty(QTextFormat::FullWidthSelection, true);

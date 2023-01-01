@@ -4,7 +4,8 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
 
     HighlightingRule rule;
 
-    keywordFormat.setForeground(QColor("#559bd4"));
+    // KEYWORDS RULES
+    keywordFormat.setForeground(QColor(85,155,212));
     const QString keywordPatternsOne[] = {
 
         QStringLiteral("\\balignas\\b"), QStringLiteral("\\balignof\\b"), QStringLiteral("\\band\\b"),
@@ -46,7 +47,7 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
     }
 
 
-    keywordFormat.setForeground(QColor("#d39bd2"));
+    keywordFormat.setForeground(QColor(211,155,210));
     const QString keywordPatternsTwo[] = {
         QStringLiteral("\\bbreak\\b"), QStringLiteral("\\bcontinue\\b"), QStringLiteral("\\belse\\b"),
         QStringLiteral("\\bfor\\b"), QStringLiteral("\\bif\\b"), QStringLiteral("\\breturn\\b"),
@@ -63,7 +64,22 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
     }
 
 
-    signsFormat.setForeground(QColor("#30d5c8"));
+    keywordFormat.setForeground(QColor(255,92,92));
+    const QString keywordPatternsThree[] = {
+        QStringLiteral("\\bstring\\b"), QStringLiteral("\\bString\\b"), QStringLiteral("\\bstd"),
+        QStringLiteral("cout"), QStringLiteral("cin"), QStringLiteral("endl")
+    };
+
+    for (const QString& pattern : keywordPatternsThree) {
+
+        rule.pattern = QRegularExpression(pattern);
+        rule.format = keywordFormat;
+        highlightingRules.append(rule);
+
+    }
+
+    // SIGNS RULES
+    signsFormat.setForeground(QColor(48,213,200));
     const QString signsPatterns[] = {
         QStringLiteral("\\+"), QStringLiteral("-"), QStringLiteral("\\*"),
         QStringLiteral("/"), QStringLiteral("<"), QStringLiteral(">"),
@@ -81,23 +97,7 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
 
     }
 
-
-    keywordFormat.setForeground(QColor("#ff5c5c"));
-    const QString keywordPatternsThree[] = {
-        QStringLiteral("\\bstring\\b"), QStringLiteral("\\bString\\b"), QStringLiteral("\\bstd"),
-        QStringLiteral("cout"), QStringLiteral("cin"), QStringLiteral("endl")
-    };
-
-    for (const QString& pattern : keywordPatternsThree) {
-
-        rule.pattern = QRegularExpression(pattern);
-        rule.format = keywordFormat;
-        highlightingRules.append(rule);
-
-    }
-
-
-    //classFormat.setFontWeight(QFont::Bold);
+    // CLASS RULES
     classFormat.setForeground(QColor("white"));
     // without space
     rule.pattern = QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+(?=\\{)"));
@@ -109,8 +109,8 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
     highlightingRules.append(rule);
 
 
-
-    quotationFormat.setForeground(QColor("#679553"));
+    // QUOTATION RULES
+    quotationFormat.setForeground(QColor(103,149,83));
     // ""
     rule.pattern = QRegularExpression(QStringLiteral("\".*\""));
     rule.format = quotationFormat;
@@ -124,8 +124,8 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
     rule.format = quotationFormat;
     highlightingRules.append(rule);
 
-
-    functionFormat.setForeground(QColor("#ffd700"));
+    // FUNCTION RULES
+    functionFormat.setForeground(QColor(255,215,0));
     rule.pattern = QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+(?=\\()"));
     rule.format = functionFormat;
     highlightingRules.append(rule);
@@ -133,7 +133,8 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
     rule.format = functionFormat;
     highlightingRules.append(rule);
 
-    numberFormat.setForeground(QColor("#ce9178"));
+    // NUMBERS RULES
+    numberFormat.setForeground(QColor(206,145,120));
     //integers
     rule.pattern = QRegularExpression(QStringLiteral(" +\\d+"));
     rule.format = numberFormat;
@@ -219,14 +220,16 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
     rule.format = numberFormat;
     highlightingRules.append(rule);
 
+
+    // COMMENTS RULES
     singleLineCommentFormat.setFontItalic(true);
-    singleLineCommentFormat.setForeground(QColor("#d0021b"));
+    singleLineCommentFormat.setForeground(QColor(208,2,27));
     rule.pattern = QRegularExpression(QStringLiteral("//[^\n]*"));
     rule.format = singleLineCommentFormat;
     highlightingRules.append(rule);
 
     multiLineCommentFormat.setFontItalic(true);
-    multiLineCommentFormat.setForeground(QColor("#d0021b"));
+    multiLineCommentFormat.setForeground(QColor(208,2,27));
     commentStartExpression = QRegularExpression(QStringLiteral("/\\*"));
     commentEndExpression = QRegularExpression(QStringLiteral("\\*/"));
 

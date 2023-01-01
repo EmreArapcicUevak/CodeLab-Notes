@@ -1,11 +1,14 @@
+#include <QApplication>
+#include <QStyleFactory>
+#include <QDebug>
+
 #include "codeeditor.h"
 
-#include <QApplication>
-
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    CodeEditor w;
-    w.show();
-    return a.exec();
+int main(int argc, char *argv[]) {
+    QApplication app(argc, argv);
+    app.setStyle(QStyleFactory::create("Fusion"));
+    app.setWindowIcon(QIcon(":/Resources/Resources/Icons/main_icon.ico"));
+    CodeEditor codeEditor;
+    codeEditor.show();
+    return app.exec();
 }

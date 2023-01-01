@@ -17,8 +17,18 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 set(PROJECT_SOURCES
         main.cpp
         codeeditor.cpp
+        editor.cpp
+        openedfiletab.cpp
+        highlighter.cpp
         codeeditor.h
+        linenumberarea.h
+        editor.h
+        openedfiletab.h
+        highlighter.h
         codeeditor.ui
+        Resources.qrc
+        activefileinformation.h
+        activefileinformation.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

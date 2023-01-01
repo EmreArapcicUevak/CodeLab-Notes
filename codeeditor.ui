@@ -110,7 +110,7 @@ QPushButton {
          <number>3</number>
         </property>
         <property name="topMargin">
-         <number>3</number>
+         <number>4</number>
         </property>
         <property name="rightMargin">
          <number>1</number>
@@ -206,6 +206,7 @@ QScrollBar::handle:vertical {
 	border  : 2px solid #555555;
 	border-radius : 2px;
 	width : 10px;
+	min-height : 30px;
 }
 
 QScrollBar::handle:horizontal {
@@ -213,6 +214,7 @@ QScrollBar::handle:horizontal {
 	border  : 2px solid #555555;
 	border-radius : 2px;
 	height : 10px;
+	min-width : 30px;
 }
 
 QScrollBar::handle:vertical:pressed {
@@ -220,6 +222,7 @@ QScrollBar::handle:vertical:pressed {
 	border  : 2px solid #555555;
 	border-radius : 5px;
 	width : 10px;
+	min-height : 30px;
 }
 
 QScrollBar::handle:horizontal:pressed {
@@ -227,6 +230,7 @@ QScrollBar::handle:horizontal:pressed {
 	border  : 2px solid #555555;
 	border-radius : 5px;
 	height : 10px;
+	min-width : 30px;
 }
 
 QScrollBar::add-line {
@@ -244,8 +248,29 @@ height: 0px;
           <property name="frameShape">
            <enum>QFrame::StyledPanel</enum>
           </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+          </property>
+          <property name="expandsOnDoubleClick">
+           <bool>false</bool>
+          </property>
           <attribute name="headerVisible">
            <bool>false</bool>
+          </attribute>
+          <attribute name="headerCascadingSectionResizes">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="headerMinimumSectionSize">
+           <number>50</number>
+          </attribute>
+          <attribute name="headerDefaultSectionSize">
+           <number>50</number>
+          </attribute>
+          <attribute name="headerStretchLastSection">
+           <bool>true</bool>
           </attribute>
          </widget>
         </item>
@@ -275,7 +300,7 @@ height: 0px;
          <number>1</number>
         </property>
         <property name="topMargin">
-         <number>3</number>
+         <number>2</number>
         </property>
         <property name="rightMargin">
          <number>3</number>
@@ -294,13 +319,13 @@ height: 0px;
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>42</height>
+            <height>45</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>42</height>
+            <height>45</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -352,7 +377,7 @@ height: 0px;
              <x>0</x>
              <y>0</y>
              <width>16</width>
-             <height>42</height>
+             <height>45</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -364,13 +389,13 @@ height: 0px;
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>42</height>
+             <height>45</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>42</height>
+             <height>45</height>
             </size>
            </property>
            <property name="focusPolicy">
@@ -398,7 +423,7 @@ height: 0px;
             <item>
              <layout class="QHBoxLayout" name="tabContainer">
               <property name="spacing">
-               <number>2</number>
+               <number>4</number>
               </property>
               <property name="sizeConstraint">
                <enum>QLayout::SetDefaultConstraint</enum>
@@ -452,7 +477,7 @@ background-position: center;
             <number>0</number>
            </property>
            <property name="topMargin">
-            <number>2</number>
+            <number>0</number>
            </property>
            <property name="rightMargin">
             <number>0</number>
@@ -496,6 +521,7 @@ QScrollBar::handle:vertical {
 	border  : 2px solid #555555;
 	border-radius : 2px;
 	width : 10px;
+	min-height : 30px;
 }
 
 QScrollBar::handle:horizontal {
@@ -503,6 +529,7 @@ QScrollBar::handle:horizontal {
 	border  : 2px solid #555555;
 	border-radius : 2px;
 	height : 10px;
+	min-width : 30px;
 }
 
 QScrollBar::handle:vertical:pressed {
@@ -510,6 +537,7 @@ QScrollBar::handle:vertical:pressed {
 	border  : 2px solid #555555;
 	border-radius : 5px;
 	width : 10px;
+	min-height : 30px;
 }
 
 QScrollBar::handle:horizontal:pressed {
@@ -517,6 +545,7 @@ QScrollBar::handle:horizontal:pressed {
 	border  : 2px solid #555555;
 	border-radius : 5px;
 	height : 10px;
+	min-width : 30px;
 }
 
 QScrollBar::add-line {
@@ -565,8 +594,7 @@ background-color : #27282a;
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="styleSheet">
-    <string notr="true">/*background-color : &quot;#27282a&quot;;*/
-background-color : #555555;</string>
+    <string notr="true">background-color : rgb(105,105,105);</string>
    </property>
   </widget>
   <widget class="QMenuBar" name="menuBar">

@@ -372,7 +372,7 @@ void CodeEditor::openFolder(){
 }
 
 void CodeEditor::createNewFile(){
-    QString newFilePath = QFileDialog::getSaveFileName(this,"Select how you want to save your file",this->workingDirectory);
+    QString newFilePath = QFileDialog::getSaveFileName(this,"Save File",this->workingDirectory);
     qDebug() << "New file name is " << newFilePath;
     if (newFilePath.isEmpty())
         return;
@@ -396,7 +396,7 @@ void CodeEditor::createNewFile(){
 
 void CodeEditor::createNewFolder()
 {
-    QString newFolderPath = QFileDialog::getSaveFileName(this,"Select how you want to save your file",this->workingDirectory, "Folder (*)");
+    QString newFolderPath = QFileDialog::getSaveFileName(this,"Save Folder",this->workingDirectory, "Folder (*)");
     qDebug() << newFolderPath;
 
     if (newFolderPath.isEmpty())
@@ -450,6 +450,7 @@ void CodeEditor::saveFileAs(){
 
         activeFileInformation* fileInfo = new activeFileInformation(fileName,&tempFile);
         this->saveFile(*fileInfo, ui->editor->toPlainText());
+        delete fileInfo;
     }
 }
 
@@ -457,7 +458,7 @@ void CodeEditor::autoSaveToggle(const bool state){
     if (state)
         this->statusBar()->showMessage("Auto saved turned on!");
     else
-        this->statusBar()->clearMessage();
+        this->statusBar()->showMessage("Auto saved turned off!");
 }
 
 

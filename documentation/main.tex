@@ -29,6 +29,7 @@
 \usepackage{enumitem} % for better enum lists
 \usepackage{tcolorbox} % for adding colored text boxes
 \usepackage{bm} % Adding bold text to math inputs
+\usepackage{unicode-math}
 
 % Setting up the default image path
 \graphicspath{{./Images/}}
@@ -62,6 +63,8 @@
 \newcommand{\miniHeader}[1]{\begin{large}\textbf{\textsc{#1}}\end{large}}
 \newcommand{\volumeUnit}[0]{\frac{g}{cm^{3}}}
 
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+
 \begin{document}
 	\begin{figure}
 		\centering
@@ -80,5 +83,29 @@
 	\tableofcontents
 	\pagebreak
 	
-	
+	\section{Assignments}
+		\noindent The following table will show all the assignments taken by the corresponding students:
+		\vspace{5mm}
+		{
+			\centering
+			
+			\begin{tabular}{|c|c|c|}
+				\hline 
+						& \textsc{Emre Arapcic-Uvak} & \textsc{Vedad Siljic} \\ \hline
+				 Design &  x & \checkmark \\ \hline
+				 Tree File Display & \checkmark & x \\ \hline
+				 File Saving & \checkmark & x \\ \hline
+				 File / Dir Creating & \checkmark & x \\ \hline
+				 File / Dir Deleting & \checkmark & x \\ \hline
+				 File Opening & \checkmark & \checkmark \\ \hline
+				 Multi File Tab & \checkmark & \checkmark \\ \hline
+				 Syntax Highlighting & x & \checkmark \\ \hline
+				 Custom Text Widget & x & \checkmark \\ \hline
+				 About Sections & \checkmark & \checkmark \\ \hline
+				 Font Customization & x & \checkmark \\ \hline
+				 Directory Model Management & \checkmark & x \\ \hline
+	 		\end{tabular}
+		
+			\par
+		}
 \end{document}

@@ -80,6 +80,7 @@ void CodeEditor::setUpMenu() {
     connect(ui->actionSave_All, &QAction::triggered, this, &CodeEditor::saveAllFiles);
     connect(ui->actionSave_as, &QAction::triggered, this, &CodeEditor::saveFileAs);
     connect(ui->actionAuto_Save, &QAction::toggled, this, &CodeEditor::autoSaveToggle);
+    connect(ui->actionRemove, &QAction::triggered, this, &CodeEditor::deleteFile);
 
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
         qDebug() << "Working directory changed!";
@@ -158,41 +159,6 @@ void CodeEditor::on_actionChange_Font_Size_triggered() {
  *
  *
 */
-/*
-void CodeEditor::createTab(QString text, bool pressed = 0, QString filePath = "", QString fileExtension = "", QString code = "") {
-    OpenedFileTab* tab = new OpenedFileTab(text, filePath, fileExtension);
-    tab->changeColor();
-    tab->code = code;
-
-    qDebug() << "Current Extension is : " << tab->fileExtension;
-    QString iconLocation = ":/Resources/Resources/Logos/text_logo_icon.svg";
-    if (tab->fileExtension == "cpp") {
-        iconLocation = ":/Resources/Resources/Logos/cpp_logo_icon.svg";
-    }
-    else if (tab->fileExtension == "c") {
-        iconLocation = ":/Resources/Resources/Logos/c_logo_icon.svg";
-    }
-    else if (tab->fileExtension == "h") {
-        iconLocation = ":/Resources/Resources/Logos/header_logo_icon.svg";
-    }
-
-    QPixmap icon(iconLocation);
-    tab->iconHolder->setPixmap(icon.scaled(15, 15, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-
-    ui->tabContainer->addWidget(tab, 0, Qt::AlignLeft);
-
-    connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
-    connect(tab, &OpenedFileTab::thisTabPressed, this, &CodeEditor::tabChangedProcess);
-    connect(tab, &OpenedFileTab::thisTabClosed, this, &CodeEditor::tabClosedProcess);
-    if (currentTab != nullptr)
-        currentTab->changeColor();
-
-    currentTab = tab;
-    activeTabs.append(tab);
-
-    setupEditor();
-    setHighlighting();
-}*/
 
 void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool pressed) {
     OpenedFileTab* tab = new OpenedFileTab(fileInfo);
@@ -459,6 +425,28 @@ void CodeEditor::autoSaveToggle(const bool state){
         this->statusBar()->showMessage("Auto saved turned on!");
     else
         this->statusBar()->showMessage("Auto saved turned off!");
+}
+
+void CodeEditor::deleteFile()
+{
+    QModelIndex currentIndex = ui->treeView->currentIndex();
+    QString filePath = dirModel->filePath(ui->treeView->currentIndex());
+
+    if (filePath.isEmpty())
+        return;
+
+
+    QFileInfo fileInfo(filePath);
+
+    if (fileInfo.isFile()){
+        QFile fileToDelete(filePath);
+
+        if (!fileToDelete.remove())
+            QMessageBox::information(this, "File has failed to delete", "The file you tried to delete is currently being used by an application.");
+    }else if (fileInfo.isDir())
+        if (!dirModel->rmdir(currentIndex))
+            QMessageBox::information(this, "Folder has failed to delete", "The folder you tried to delete is currently being used by an application.");
+
 }
 
 

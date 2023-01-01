@@ -32,7 +32,8 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
         QStringLiteral("\\btypeid\\b"), QStringLiteral("\\btypename\\b"), QStringLiteral("\\bunion\\b"),
         QStringLiteral("\\bunsigned\\b"), QStringLiteral("\\busing\\b"), QStringLiteral("\\bvirtual\\b"),
         QStringLiteral("\\bvoid\\b"), QStringLiteral("\\bvolatile\\b"), QStringLiteral("\\bwchar_t\\b"),
-        QStringLiteral("\\bxor\\b"), QStringLiteral("\\bxor_eq\\b")
+        QStringLiteral("\\bxor\\b"), QStringLiteral("\\bxor_eq\\b"), QStringLiteral("#\\bdefine\\b"),
+        QStringLiteral("#\\binclude\\b")
 
     };
 
@@ -62,15 +63,48 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
     }
 
 
+    signsFormat.setForeground(QColor("#30d5c8"));
+    const QString signsPatterns[] = {
+        QStringLiteral("\\+"), QStringLiteral("-"), QStringLiteral("\\*"),
+        QStringLiteral("/"), QStringLiteral("<"), QStringLiteral(">"),
+        QStringLiteral("\\["), QStringLiteral("\\]"), QStringLiteral("\\{"),
+        QStringLiteral("\\}"), QStringLiteral("\\("), QStringLiteral("\\)"),
+        QStringLiteral(";")
 
-    classFormat.setFontWeight(QFont::Bold);
-    classFormat.setForeground(Qt::darkMagenta);
+    };
+
+    for (const QString& pattern : signsPatterns) {
+
+        rule.pattern = QRegularExpression(pattern);
+        rule.format = signsFormat;
+        highlightingRules.append(rule);
+
+    }
+
+
+    keywordFormat.setForeground(QColor("#ff5c5c"));
+    const QString keywordPatternsThree[] = {
+        QStringLiteral("\\bstring\\b"), QStringLiteral("\\bString\\b"), QStringLiteral("\\bstd"),
+        QStringLiteral("cout"), QStringLiteral("cin"), QStringLiteral("endl")
+    };
+
+    for (const QString& pattern : keywordPatternsThree) {
+
+        rule.pattern = QRegularExpression(pattern);
+        rule.format = keywordFormat;
+        highlightingRules.append(rule);
+
+    }
+
+
+    //classFormat.setFontWeight(QFont::Bold);
+    classFormat.setForeground(QColor("white"));
     // without space
     rule.pattern = QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+(?=\\{)"));
     rule.format = classFormat;
     highlightingRules.append(rule);
     // with space
-    rule.pattern = QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+(?=\\ {)"));
+    rule.pattern = QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+ +(?=\\{)"));
     rule.format = classFormat;
     highlightingRules.append(rule);
 
@@ -86,24 +120,113 @@ Highlighter::Highlighter(QTextDocument* parent) : QSyntaxHighlighter(parent) {
     rule.format = quotationFormat;
     highlightingRules.append(rule);
     // < >
-    rule.pattern = QRegularExpression(QStringLiteral("\<.*\>"));
+    rule.pattern = QRegularExpression(QStringLiteral("\\<.*\\>"));
     rule.format = quotationFormat;
     highlightingRules.append(rule);
 
 
-    functionFormat.setFontItalic(true);
-    functionFormat.setForeground(Qt::blue);
+    functionFormat.setForeground(QColor("#ffd700"));
     rule.pattern = QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+(?=\\()"));
     rule.format = functionFormat;
     highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+ +(?=\\()"));
+    rule.format = functionFormat;
+    highlightingRules.append(rule);
 
+    numberFormat.setForeground(QColor("#ce9178"));
+    //integers
+    rule.pattern = QRegularExpression(QStringLiteral(" +\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("=+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("<+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral(">+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("\\++\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("-+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("\\*+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("/+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("%+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    //floating numbers without f"
+    rule.pattern = QRegularExpression(QStringLiteral(" +\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("=+\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("<+\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral(">+\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("\\++\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("-+\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("\\*+\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("/+\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("%+\\d+\\.+\\d+"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    //floating numbers with f"
+    rule.pattern = QRegularExpression(QStringLiteral(" +\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("=+\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("<+\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral(">+\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("\\++\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("-+\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("\\*+\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("/+\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
+    rule.pattern = QRegularExpression(QStringLiteral("%+\\d+\\.+\\d+f"));
+    rule.format = numberFormat;
+    highlightingRules.append(rule);
 
-    singleLineCommentFormat.setForeground(QColor("#c4cace"));
+    singleLineCommentFormat.setFontItalic(true);
+    singleLineCommentFormat.setForeground(QColor("#d0021b"));
     rule.pattern = QRegularExpression(QStringLiteral("//[^\n]*"));
     rule.format = singleLineCommentFormat;
     highlightingRules.append(rule);
 
-    multiLineCommentFormat.setForeground(QColor("#c4cace"));
+    multiLineCommentFormat.setFontItalic(true);
+    multiLineCommentFormat.setForeground(QColor("#d0021b"));
     commentStartExpression = QRegularExpression(QStringLiteral("/\\*"));
     commentEndExpression = QRegularExpression(QStringLiteral("\\*/"));
 

@@ -11,6 +11,8 @@ public:
 
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
+    void setFontSize(int fontSize);
+    int getFontSize();
 
 protected:
     void resizeEvent(QResizeEvent *event) override;
@@ -21,6 +23,7 @@ private slots:
     void highlightCurrentLine();
 
 private:
+    int fontSize;
     QWidget *lineNumberArea;
 };
 

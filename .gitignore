@@ -53,3 +53,10 @@ compile_commands.json
 
 # Build Files
 */build-CodeLab-Notes-Desktop_Qt_6_4_0_GCC_64bit-Debug
+
+# LaTeX files
+*.log
+*.gz
+*.aux
+*.out
+*.toc

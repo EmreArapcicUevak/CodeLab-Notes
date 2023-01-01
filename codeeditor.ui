@@ -136,7 +136,7 @@ QPushButton {
 
 QToolButton {
 	background-color : #555555;
-	margin : 0 10px;
+	margin : 0 20px;
 	padding : 5px 0;
 }
 
@@ -615,8 +615,6 @@ QMenu::item:selected {
     <addaction name="actionOpen_File"/>
     <addaction name="actionOpen_Folder"/>
     <addaction name="separator"/>
-    <addaction name="actionBuild"/>
-    <addaction name="separator"/>
     <addaction name="actionSave"/>
     <addaction name="actionSave_as"/>
     <addaction name="actionSave_All"/>
@@ -642,7 +640,7 @@ QMenu::item:selected {
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="actionCompiler"/>
+    <addaction name="actionChange_Font_Size"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="styleSheet">
@@ -745,20 +743,6 @@ QMenu::item:selected {
     <string>Paste</string>
    </property>
   </action>
-  <action name="actionCompiler">
-   <property name="text">
-    <string>Compiler</string>
-   </property>
-  </action>
-  <action name="actionBuild">
-   <property name="icon">
-    <iconset resource="Resources.qrc">
-     <normaloff>:/Resources/Resources/Icons/build_icon.svg</normaloff>:/Resources/Resources/Icons/build_icon.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Build</string>
-   </property>
-  </action>
   <action name="actionNew_Folder">
    <property name="icon">
     <iconset resource="Resources.qrc">
@@ -775,6 +759,11 @@ QMenu::item:selected {
    </property>
    <property name="text">
     <string>Remove</string>
+   </property>
+  </action>
+  <action name="actionChange_Font_Size">
+   <property name="text">
+    <string>Change Font Size</string>
    </property>
   </action>
  </widget>

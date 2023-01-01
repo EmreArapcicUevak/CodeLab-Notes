@@ -6,6 +6,7 @@
 Editor::Editor(QWidget *parent) : QPlainTextEdit(parent) {
 
     lineNumberArea = new LineNumberArea(this);
+    fontSize = 14;
 
     connect(this, &Editor::blockCountChanged, this, &Editor::updateLineNumberAreaWidth);
     connect(this, &Editor::updateRequest, this, &Editor::updateLineNumberArea);
@@ -67,7 +68,7 @@ void Editor::lineNumberAreaPaintEvent(QPaintEvent *event) {
         if (block.isVisible() && bottom >= event->rect().top()) {
             QString number = QString::number(blockNumber + 1);
             painter.setPen(QColor("#c5c5c5"));
-            painter.setFont(QFont("roboto",14));
+            painter.setFont(QFont("roboto", fontSize));
             painter.drawText(0, top, lineNumberArea->width(), fontMetrics().height(),
                              Qt::AlignCenter, number);
         }
@@ -95,4 +96,15 @@ void Editor::highlightCurrentLine() {
     }
 
     setExtraSelections(extraSelections);
+}
+
+void Editor::setFontSize(int fontSize) {
+    this->fontSize = fontSize;
+    QFont font = this->font();
+    font.setPointSize(this->fontSize);
+    this->setFont(font);
+}
+
+int Editor::getFontSize() {
+    return this->fontSize;
 }

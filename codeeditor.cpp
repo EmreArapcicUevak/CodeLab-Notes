@@ -9,6 +9,7 @@
 #include <QAbstractScrollArea>
 #include <QToolBar>
 #include <QMessageBox>
+#include <QInputDialog>
 
 #include "openedfiletab.h"
 #include <QHash>
@@ -42,7 +43,9 @@ CodeEditor::CodeEditor(QWidget *parent)
     toolBar->addAction(ui->actionNew_Folder);
     toolBar->addAction(ui->actionNew_File);
     toolBar->addAction(ui->actionSave);
-    toolBar->addAction(ui->actionBuild);
+
+    // Set up the font size of the editor
+    ui->editor->setFontSize(14);
 
     // Set up all the connections for actions
     setUpMenu();
@@ -138,6 +141,14 @@ void CodeEditor::aboutCodeLabNotes() {
                    "<a href= \"https://github.com/EmreArapcicUevak\">Emre Arapcic Uevak</a><br>"
                    "Source code : <br><a href= \"https://github.com/EmreArapcicUevak/CodeLab-Notes\">https://github.com/EmreArapcicUevak/CodeLab-Notes</a>");
     msgBox.exec();
+}
+
+void CodeEditor::on_actionChange_Font_Size_triggered() {
+
+    int fontSize = ui->editor->getFontSize();
+    fontSize = QInputDialog::getInt(this, "Change Font Size", "Font Size : ", fontSize);
+    ui->editor->setFontSize(fontSize);
+
 }
 
 /*
@@ -467,4 +478,7 @@ void CodeEditor::updateTreeView(){
 }
 
 /* */
+
+
+
 

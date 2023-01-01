@@ -3,6 +3,7 @@
 
 #include "qfilesystemmodel.h"
 #include <QMainWindow>
+#include <QFont>
 
 #include "highlighter.h"
 #include "openedfiletab.h"
@@ -48,6 +49,8 @@ private slots:
     void saveAllFiles();
     void saveFileAs();
     void autoSaveToggle(const bool);
+    void on_actionChange_Font_Size_triggered();
+
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;

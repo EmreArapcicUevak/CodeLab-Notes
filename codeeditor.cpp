@@ -44,7 +44,6 @@ CodeEditor::CodeEditor(QWidget *parent)
     toolBar->addAction(ui->actionSave);
     toolBar->addAction(ui->actionBuild);
 
-
     // Set up all the connections for actions
     setUpMenu();
 

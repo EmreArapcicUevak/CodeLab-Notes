@@ -472,7 +472,7 @@ background-position: center;
              <property name="styleSheet">
               <string notr="true">#editor {
 background-color : #27282a;
-color : white;
+color : #C5C5C5;
 border : none;
 padding-top : 10px;
 }

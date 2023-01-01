@@ -158,7 +158,7 @@ QToolButton:hover {
             <number>0</number>
            </property>
            <property name="topMargin">
-            <number>2</number>
+            <number>1</number>
            </property>
            <property name="rightMargin">
             <number>0</number>
@@ -294,13 +294,13 @@ height: 0px;
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>38</height>
+            <height>42</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>16777215</width>
-            <height>38</height>
+            <height>42</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -352,7 +352,7 @@ height: 0px;
              <x>0</x>
              <y>0</y>
              <width>16</width>
-             <height>16</height>
+             <height>42</height>
             </rect>
            </property>
            <property name="sizePolicy">
@@ -360,6 +360,18 @@ height: 0px;
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>42</height>
+            </size>
            </property>
            <property name="focusPolicy">
             <enum>Qt::NoFocus</enum>
@@ -388,11 +400,14 @@ height: 0px;
               <property name="spacing">
                <number>2</number>
               </property>
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
               <property name="leftMargin">
                <number>0</number>
               </property>
               <property name="topMargin">
-               <number>2</number>
+               <number>0</number>
               </property>
               <property name="rightMargin">
                <number>2</number>
@@ -430,11 +445,14 @@ background-position: center;
 }</string>
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <property name="spacing">
+            <number>8</number>
+           </property>
            <property name="leftMargin">
             <number>0</number>
            </property>
            <property name="topMargin">
-            <number>0</number>
+            <number>2</number>
            </property>
            <property name="rightMargin">
             <number>0</number>

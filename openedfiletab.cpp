@@ -5,8 +5,8 @@
 #include <QStyleOption>
 #include <QApplication>
 OpenedFileTab::OpenedFileTab(activeFileInformation &activeFileInfo) {
-    this->fileInfo = activeFileInfo;
 
+    this->fileInfo = activeFileInfo;
     pressed = false;
     code = "";
     filePath = activeFileInfo.fileInstance->fileName();
@@ -22,12 +22,10 @@ OpenedFileTab::OpenedFileTab(activeFileInformation &activeFileInfo) {
     layout->addWidget(label);
     layout->addSpacerItem(spacer);
     layout->addWidget(deleteBtn);
-
     this->setLayout(layout);
 
     connect(this, &OpenedFileTab::onPressed, this, &OpenedFileTab::tabPressed);
     connect(deleteBtn, &QPushButton::released, this, &OpenedFileTab::deletePressed);
-
 
 
     layout->setSpacing(0);
@@ -62,19 +60,10 @@ OpenedFileTab::OpenedFileTab(activeFileInformation &activeFileInfo) {
 
     this->setMaximumSize(QSize(200, this->height()));
     this->setMinimumSize(QSize(200, this->height()));
+
 }
 
-void OpenedFileTab::paintEvent(QPaintEvent* event) {
-    QStyleOption opt;
-    opt.initFrom(this);
-    QPainter p(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
-
-    QWidget::paintEvent(event);
-}
-
-void OpenedFileTab::changeFile(activeFileInformation &activeFileInfo)
-{
+void OpenedFileTab::changeFile(activeFileInformation &activeFileInfo) {
     this->label->setText(activeFileInfo.fileName);
     this->fileInfo = activeFileInfo;
     this->filePath = activeFileInfo.fileInstance->fileName();
@@ -105,6 +94,52 @@ void OpenedFileTab::deletePressed() {
     delete this;
 }
 
+void OpenedFileTab::mouseMoveEvent(QMouseEvent* event) {
+    if (!(event->buttons() & Qt::LeftButton) || !IsMinimumDistanceReached(event))
+        return;
+
+    int x = event->globalPosition().x() - mouseClickX + oldX;
+    int RightBorder = this->parentWidget()->geometry().width() - this->geometry().width();
+    x = x < 0 ? 0 : x > RightBorder ? RightBorder : x;
+    move(x, oldY);
+}
+
+void OpenedFileTab::mouseReleaseEvent(QMouseEvent*) {
+    this->lower();
+
+    int x = geometry().x();
+    int direct = oldX > x ? -1 : 1;
+    int offset = (x - oldX) * direct;
+
+    int count = float(offset) / this->width() + .34;
+    moveInLayout(direct * count);
+
+
+    update();
+    QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->layout());
+    myLayout->update();
+    this->saveGeometry();
+}
+
+bool OpenedFileTab::IsMinimumDistanceReached(QMouseEvent* event) {
+    return (event->pos() - dragStartPosition).manhattanLength() >= QApplication::startDragDistance();
+}
+
+
+// Direction -1 is Left && 1 is Right
+void OpenedFileTab::moveInLayout(int direction) {
+    QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->findChild<QHBoxLayout*>("tabContainer"));
+    const int index = myLayout->indexOf(this);
+
+    int newIndex = index + direction;
+    newIndex = newIndex < 0 ? 0 : newIndex >= myLayout->count() ? myLayout->count() - 1 : newIndex;
+
+    if (index == -1 || index == newIndex)
+        return;
+    this->parentWidget()->layout()->removeWidget(this);
+    myLayout->insertWidget(newIndex, this);
+}
+
 void OpenedFileTab::changeColor() {
 
     pressed = !pressed;
@@ -131,49 +166,12 @@ void OpenedFileTab::changeColor() {
     label->style()->unpolish(label);
     label->style()->polish(label);
 }
-void OpenedFileTab::mouseMoveEvent(QMouseEvent* event) {
-    if (!(event->buttons() & Qt::LeftButton) || !IsMinimumDistanceReached(event))
-        return;
 
-    int x = event->globalPosition().x() - mouseClickX + oldX;
-    int RightBorder = this->parentWidget()->geometry().width() - this->geometry().width();
-    x = x < 0 ? 0 : x > RightBorder ? RightBorder : x;
-    move(x, oldY);
+void OpenedFileTab::paintEvent(QPaintEvent* event) {
+    QStyleOption opt;
+    opt.initFrom(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+
+    QWidget::paintEvent(event);
 }
-
-bool OpenedFileTab::IsMinimumDistanceReached(QMouseEvent* event) {
-    return (event->pos() - dragStartPosition).manhattanLength() >= QApplication::startDragDistance();
-}
-
-
-// Direction -1 is Left && 1 is Right
-void OpenedFileTab::moveInLayout(int direction) {
-    QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->findChild<QHBoxLayout*>("tabContainer"));
-    const int index = myLayout->indexOf(this);
-
-    int newIndex = index + direction;
-    newIndex = newIndex < 0 ? 0 : newIndex >= myLayout->count() ? myLayout->count() - 1 : newIndex;
-
-    if (index == -1 || index == newIndex)
-        return;
-    this->parentWidget()->layout()->removeWidget(this);
-    myLayout->insertWidget(newIndex, this);
-}
-
-void OpenedFileTab::mouseReleaseEvent(QMouseEvent*) {
-    this->lower();
-
-    int x = geometry().x();
-    int direct = oldX > x ? -1 : 1;
-    int offset = (x - oldX) * direct;
-
-    int count = float(offset) / this->width() + .34;
-    moveInLayout(direct * count);
-
-
-    update();
-    QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->layout());
-    myLayout->update();
-    this->saveGeometry();
-}
-

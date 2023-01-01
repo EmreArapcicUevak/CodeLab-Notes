@@ -1,5 +1,7 @@
 #include "codeeditor.h"
 #include "./ui_codeeditor.h"
+#include "openedfiletab.h"
+
 #include <QAction>
 #include <QFileDialog>
 #include <QFileSystemModel>
@@ -10,8 +12,6 @@
 #include <QToolBar>
 #include <QMessageBox>
 #include <QInputDialog>
-
-#include "openedfiletab.h"
 #include <QHash>
 
 
@@ -32,11 +32,13 @@ CodeEditor::CodeEditor(QWidget *parent)
     icons.insert("c",":/Resources/Resources/Logos/c_logo_icon.svg");
     icons.insert("h", ":/Resources/Resources/Logos/header_logo_icon.svg");
 
+    // Checks if the text in editor has changed
     connect(ui->editor,&QPlainTextEdit::textChanged, [this]()->void{
         if (!this->blockChange)
             this->contentChanged = true;
     });
 
+    // Set up the toolbar
     QToolBar* toolBar = new QToolBar();
     ui->toolbarHolder->addWidget(toolBar);
     toolBar->addAction(ui->actionRemove);

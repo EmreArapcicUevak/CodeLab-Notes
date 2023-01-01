@@ -1,13 +1,13 @@
 #ifndef CODEEDITOR_H
 #define CODEEDITOR_H
 
-#include "qfilesystemmodel.h"
 #include <QMainWindow>
 #include <QFont>
 
 #include "highlighter.h"
 #include "openedfiletab.h"
 #include "activefileinformation.h"
+#include "qfilesystemmodel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CodeEditor; }
@@ -25,8 +25,10 @@ public:
     void aboutCodeLabNotes();
     void setHighlighting();
     void setupEditor();
+
 signals:
     void workingDirectoryChanged();
+
 private slots:
     /*Trew view based slots */
     void updateTreeView();
@@ -51,22 +53,18 @@ private slots:
     void autoSaveToggle(const bool);
     void deleteFile();
     void on_actionChange_Font_Size_triggered();
+
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;
     QString workingDirectory, rootFileName;
-
     QList<activeFileInformation*> activeFiles;
     QList<OpenedFileTab*> activeTabs;
-
     Highlighter* highlighter;
     OpenedFileTab* currentTab;
-
     QHash<QString, QString> icons;
 
     bool blockChange, contentChanged;
-
-
     void setUpMenu();
     void setUpTreeView();
     void openFile(const QString&, const QString &);

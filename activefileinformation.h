@@ -3,9 +3,10 @@
 
 #include <QFile>
 
-class activeFileInformation
-{
+class activeFileInformation {
+
 public:
+
     QFile* fileInstance;
     QString fileName, fileExtension;
 
@@ -17,6 +18,7 @@ public:
     activeFileInformation& operator=(activeFileInformation&);
     bool operator==(activeFileInformation& objToCompare);
     bool operator==(activeFileInformation* objToCompare);
+
 };
 
 #endif // ACTIVEFILEINFORMATION_H

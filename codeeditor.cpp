@@ -416,7 +416,6 @@ void CodeEditor::saveFileAs(){
 
         activeFileInformation* fileInfo = new activeFileInformation(fileName,&tempFile);
         this->saveFile(*fileInfo, ui->editor->toPlainText());
-        delete fileInfo;
     }
 }
 

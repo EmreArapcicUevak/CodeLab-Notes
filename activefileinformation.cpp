@@ -41,3 +41,11 @@ activeFileInformation &activeFileInformation::operator=(activeFileInformation &o
     this->fileInstance = objToCopy.fileInstance;
     return *this;
 }
+
+bool activeFileInformation::operator==(activeFileInformation &objToCompare){
+    return this->fileInstance == objToCompare.fileInstance;
+}
+
+bool activeFileInformation::operator==(activeFileInformation *objToCompare){
+    return this->fileInstance == objToCompare->fileInstance;
+}

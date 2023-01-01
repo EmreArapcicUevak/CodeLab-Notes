@@ -148,41 +148,6 @@ void CodeEditor::aboutCodeLabNotes() {
  *
  *
 */
-/*
-void CodeEditor::createTab(QString text, bool pressed = 0, QString filePath = "", QString fileExtension = "", QString code = "") {
-    OpenedFileTab* tab = new OpenedFileTab(text, filePath, fileExtension);
-    tab->changeColor();
-    tab->code = code;
-
-    qDebug() << "Current Extension is : " << tab->fileExtension;
-    QString iconLocation = ":/Resources/Resources/Logos/text_logo_icon.svg";
-    if (tab->fileExtension == "cpp") {
-        iconLocation = ":/Resources/Resources/Logos/cpp_logo_icon.svg";
-    }
-    else if (tab->fileExtension == "c") {
-        iconLocation = ":/Resources/Resources/Logos/c_logo_icon.svg";
-    }
-    else if (tab->fileExtension == "h") {
-        iconLocation = ":/Resources/Resources/Logos/header_logo_icon.svg";
-    }
-
-    QPixmap icon(iconLocation);
-    tab->iconHolder->setPixmap(icon.scaled(15, 15, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-
-    ui->tabContainer->addWidget(tab, 0, Qt::AlignLeft);
-
-    connect(tab, &OpenedFileTab::tabClosed, this, &CodeEditor::fileCloseSlot);
-    connect(tab, &OpenedFileTab::thisTabPressed, this, &CodeEditor::tabChangedProcess);
-    connect(tab, &OpenedFileTab::thisTabClosed, this, &CodeEditor::tabClosedProcess);
-    if (currentTab != nullptr)
-        currentTab->changeColor();
-
-    currentTab = tab;
-    activeTabs.append(tab);
-
-    setupEditor();
-    setHighlighting();
-}*/
 
 void CodeEditor::createTab(activeFileInformation& fileInfo, QString& code, bool pressed) {
     OpenedFileTab* tab = new OpenedFileTab(fileInfo);

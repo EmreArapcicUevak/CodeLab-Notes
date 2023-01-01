@@ -76,6 +76,7 @@ void OpenedFileTab::paintEvent(QPaintEvent* event) {
 void OpenedFileTab::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton)
         emit onPressed();
+    this->raise();
 
     // Tab drag
     if (event->buttons() & Qt::LeftButton)
@@ -139,16 +140,12 @@ bool OpenedFileTab::IsMinimumDistanceReached(QMouseEvent* event) {
 
 // Direction -1 is Left && 1 is Right
 void OpenedFileTab::moveInLayout(int direction) {
-
-    qDebug() << "parent widget: " << this->parentWidget();
-    qDebug() << "parent widget layout: " << this->parentWidget()->findChild<QHBoxLayout*>("tabContainer");
     QHBoxLayout* myLayout = qobject_cast<QHBoxLayout*>(this->parentWidget()->findChild<QHBoxLayout*>("tabContainer"));
     const int index = myLayout->indexOf(this);
 
     int newIndex = index + direction;
     newIndex = newIndex < 0 ? 0 : newIndex >= myLayout->count() ? myLayout->count() - 1 : newIndex;
 
-    qDebug() << "Index: " + QString::number(index) << "new Index: " + QString::number(newIndex) << "Direction: " + QString::number(direction);
     if (index == -1 || index == newIndex)
         return;
     this->parentWidget()->layout()->removeWidget(this);
@@ -156,17 +153,12 @@ void OpenedFileTab::moveInLayout(int direction) {
 }
 
 void OpenedFileTab::mouseReleaseEvent(QMouseEvent*) {
-    qDebug() << "Released";
+    this->lower();
+
     int x = geometry().x();
     int direct = oldX > x ? -1 : 1;
     int offset = (x - oldX) * direct;
-    /*if(oldX > x){
-        offset = oldX - x;
-        direct = -1;
-    }else if(oldX < x){
-        offset = x - oldX;
-        direct = 1;
-    }*/
+
     int count = float(offset) / this->width() + .34;
     moveInLayout(direct * count);
 

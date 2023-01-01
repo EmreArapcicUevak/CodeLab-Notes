@@ -78,6 +78,7 @@ void CodeEditor::setUpMenu() {
     connect(ui->actionSave_All, &QAction::triggered, this, &CodeEditor::saveAllFiles);
     connect(ui->actionSave_as, &QAction::triggered, this, &CodeEditor::saveFileAs);
     connect(ui->actionAuto_Save, &QAction::toggled, this, &CodeEditor::autoSaveToggle);
+    connect(ui->actionRemove, &QAction::triggered, this, &CodeEditor::deleteFile);
 
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
         qDebug() << "Working directory changed!";
@@ -413,6 +414,28 @@ void CodeEditor::autoSaveToggle(const bool state){
         this->statusBar()->showMessage("Auto saved turned on!");
     else
         this->statusBar()->clearMessage();
+}
+
+void CodeEditor::deleteFile()
+{
+    QModelIndex currentIndex = ui->treeView->currentIndex();
+    QString filePath = dirModel->filePath(ui->treeView->currentIndex());
+
+    if (filePath.isEmpty())
+        return;
+
+
+    QFileInfo fileInfo(filePath);
+
+    if (fileInfo.isFile()){
+        QFile fileToDelete(filePath);
+
+        if (!fileToDelete.remove())
+            QMessageBox::information(this, "File has failed to delete", "The file you tried to delete is currently being used by an application.");
+    }else if (fileInfo.isDir())
+        if (!dirModel->rmdir(currentIndex))
+            QMessageBox::information(this, "Folder has failed to delete", "The folder you tried to delete is currently being used by an application.");
+
 }
 
 

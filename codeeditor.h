@@ -48,6 +48,7 @@ private slots:
     void saveAllFiles();
     void saveFileAs();
     void autoSaveToggle(const bool);
+    void deleteFile();
 private:
     Ui::CodeEditor *ui;
     QFileSystemModel* dirModel;

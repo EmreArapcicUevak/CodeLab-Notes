@@ -28,6 +28,7 @@
   <property name="styleSheet">
    <string notr="true">QMainWindow {
 background-color: #454648;
+color : white;
 }
 
 QDialog {
@@ -37,6 +38,10 @@ QDialog {
 
 QPushButton {
 	background-color : #27282a;
+	color : white;
+}
+
+QLabel {
 	color : white;
 }</string>
   </property>
@@ -614,14 +619,17 @@ background-color : #27282a;
 
 QMenuBar::item {
 	background-color : #27282a;
+	color: white;
 }
 
 QMenuBar::item:selected {
 	background-color : #353638;
+	color: white;
 }
 
 QMenu {
 	background-color : #27282a;
+	color: white;
 }
 
 QMenu::item:selected {

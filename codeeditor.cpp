@@ -83,6 +83,17 @@ void CodeEditor::setUpMenu() {
     connect(ui->actionSave_as, &QAction::triggered, this, &CodeEditor::saveFileAs);
     connect(ui->actionAuto_Save, &QAction::toggled, this, &CodeEditor::autoSaveToggle);
     connect(ui->actionRemove, &QAction::triggered, this, &CodeEditor::deleteFile);
+    connect(ui->actionOpen_File, &QAction::triggered, [this]()->void{
+       QString filePath = QFileDialog::getOpenFileName(this,"Select the file to open",this->workingDirectory), fileName;
+       if (filePath.isEmpty())
+           return;
+
+       unsigned int index = filePath.size();
+       while(filePath[--index] != '/');
+
+       fileName = filePath.sliced(index+1);
+       this->openFile(filePath, fileName);
+    });
 
     connect(this, &CodeEditor::workingDirectoryChanged, [this]()->void{
         qDebug() << "Working directory changed!";

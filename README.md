@@ -29,3 +29,27 @@ all that you have to do is go to the "build" folder and run the executable file 
 ### Running with QT Creator
 
 All you have to do is make sure to get the QT 6.4 or any version higher that is compatible, get CMake and MinGW 64x to be able to compile everything needed, once you are done getting everything ready you can build the [CMake file](https://github.com/EmreArapcicUevak/CodeLab-Notes/blob/readMe/CMakeLists.txt).
+
+## About the creators
+
+The creators of this project as of creating the project are both 1st semester students at [**I**nternational **U**niversity of **S**arajevo](https://www.ius.edu.ba/en).
+
+* Emre Arapcic-Uevak
+  * Computer Science Undegraduate
+* Vedad Siljic
+  * Software Engineering Undergraduate
+
+### Goals for creating this project
+
+When we started creating this project we had close to zero experience with QT. We took this project for the shear reason that it was the only project that was given as an viable option that wasnt a simple console application, and we also never had an chance
+to collaborate with anyone else beforehand so this was a good chance to put our *Git* knowledge to the test.
+
+In other words the things we expected to achive by doing this project:
+* Learn the C++ QT Framework
+* Get a sense of how to work as a team on a "bigger" project.
+* Push our C++ and Git knowledge to the test.
+
+### Difficulties we experienced
+
+From everything mentioned above hand the most difficult thing of them all was finding the time to learn QT but also finding the time to work on the project because we were only given a window of around 1 \~ 2 weeks to work on this project due to other subjects
+getting in the way of work. We bealive if we have had more time that we could have made CodeLab - Notes even better then what it is.

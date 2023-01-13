@@ -10,7 +10,7 @@ using the [*QT Framework*](https://www.qt.io/).
 ## The Code Editor
 
 <div align="center">
-	<img src="./documentation/Images/CodeLabNotesPresentationShot.png" title="CodeLab-Notes" alt="CodeLab-Notes" width="70%"/>&nbsp;
+	<img src="./documentation/Images/CodeLabNotesPresentationShot.png" title="CodeLab-Notes" alt="CodeLab-Notes" width="87%"/>&nbsp;
 </div>
 
 CodeLab-Notes can do:
